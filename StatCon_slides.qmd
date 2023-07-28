@@ -1,0 +1,45 @@
+---
+title: "biplotEZ"
+subtitle: "User-friendly biplots in R" 
+author: "Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <br><br> muvisu@sun.ac.za"
+date: "2 September 2023"
+date-format: "iso"
+format: 
+  revealjs:
+    theme: [serif, statcon.scss]
+    slide-number: true
+    footer: "https://github.com/MuViSU/biplotEZ_beta"
+title-slide-attributes: 
+  data-background-color: "#61223b"
+  data-background-image: "images//SU_vertical.jpg"
+  data-background-size: 15%
+  data-background-opacity: "0.9"
+  data-background-position: 95% 90%
+
+---
+
+## Slide 1
+
+-   bullet 1
+-   bullet 2
+
+## Slide 2
+```{r, echo=TRUE}
+plot(1:10,1:10,col=1:10)
+```
+
+## Test slide incremental bullets
+
+::: {.incremental}
+
+- bullet 1
+- bullet 2
+:::
+
+## Test slide non-incremental bullets
+::: {.nonincremental}
+
+- bullet 1
+- bullet 2
+
+:::
