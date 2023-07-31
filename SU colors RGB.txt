@@ -1,0 +1,8 @@
+SU colors:
+Maroon: RGB (97,34,59)
+Gold: RGB (183,153,98)
+Seabreeze green: RGB (130,204,174)
+Fiery orange: RGB (220,68,5)
+Wine Red: RGB (166,10,61)
+Soil: RGB (100,51,53)
+EMS: RGB (44,204,211)
