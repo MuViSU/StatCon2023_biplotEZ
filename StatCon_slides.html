@@ -404,35 +404,49 @@ Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <
 
   <p class="date">2023-09-02</p>
 </section>
-<section id="slide-1" class="slide level2">
-<h2>Slide 1</h2>
+<section id="installing-biplotez" class="slide level2">
+<h2>Installing <strong>biplotEZ</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Install from GitHub</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">install_github</span>(<span class="st">"MuViSU/biplotEZ_beta"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#check this</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(biplotEZ)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#check this</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(biplotEZ_beta)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Getting help                 </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">help</span>(<span class="at">package=</span><span class="st">"biplotEZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="general-notes" class="slide level2">
+<h2>General notes</h2>
+<div>
 <ul>
-<li>bullet 1</li>
-<li>bullet 2</li>
+<li>Use the native R pipe: |&gt;</li>
+<li>Since %&gt;% is not required, you do not have to load:</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>To set |&gt; as your default, change the keyboard shortcut <strong>Ctrl-Shift-M</strong>: <img data-src="\images\GlobalOptions.jpg" width="200" alt="Global options"> <img data-src="\images\NativePipe.jpg" width="350" alt="Global options"></li>
+</ul>
+</div>
 </section>
 <section id="slide-2" class="slide level2">
 <h2>Slide 2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section id="test-slide-incremental-bullets" class="slide level2">
 <h2>Test slide incremental bullets</h2>
 <div>
 <ul>
 <li class="fragment">bullet 1</li>
 <li class="fragment">bullet 2</li>
-</ul>
-</div>
-</section>
-<section id="test-slide-non-incremental-bullets" class="slide level2">
-<h2>Test slide non-incremental bullets</h2>
-<div>
-<ul>
-<li>bullet 1</li>
-<li>bullet 2</li>
 </ul>
 </div>
 <div class="footer footer-default">
