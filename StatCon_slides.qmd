@@ -48,6 +48,22 @@ library(magrittr)
 ![Global options](\images\NativePipe.jpg){width=350}
 :::
 
+## Basic construction
+
+::: {.nonincremental}
+- Start with the biplot() function
+```{r, echo = FALSE, eval = TRUE}
+x <- args(biplot)
+print(x)
+```
+
+- This will prepare the data and perform the required computations before the biplot construction
+- All other functions will follow with a pipe ( |> )
+- Use the preferred biplot: PCA(), CVA() - available in current version
+- Now a number of formatting changes can be made by calling approproriate functions.
+
+:::
+
 ## Slide 2
 ```{r, echo=TRUE}
 plot(1:10,1:10,col=1:10)
