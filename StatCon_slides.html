@@ -406,7 +406,7 @@ Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <
 </section>
 <section id="installing-biplotez" class="slide level2">
 <h2>Installing <strong>biplotEZ</strong></h2>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Install from GitHub</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">install_github</span>(<span class="st">"MuViSU/biplotEZ_beta"</span>)</span>
@@ -423,44 +423,66 @@ Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <
 <h2>General notes</h2>
 <div>
 <ul>
-<li>Use the native R pipe: |&gt;</li>
-<li>Since %&gt;% is not required, you do not have to load:</li>
+<li>Use the native R pipe: <span style="font-family: 'Courier New'">|&gt;</span><br>
+</li>
+<li>Since <span style="font-family: 'Courier New'">%&gt;%</span> is not required, you do not have to load:</li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>To set |&gt; as your default, change the keyboard shortcut <strong>Ctrl-Shift-M</strong>: <img data-src="\images\GlobalOptions.jpg" width="200" alt="Global options"> <img data-src="\images\NativePipe.jpg" width="350" alt="Global options"></li>
+<li>To set <span style="font-family: 'Courier New'">|&gt;</span> as your default, change the keyboard shortcut <strong>Ctrl-Shift-M</strong>:</li>
 </ul>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 28.6%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="\images\GlobalOptions.jpg"></p>
+<figcaption>Global options</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 71.4%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="\images\NativePipe.jpg"></p>
+<figcaption>Global options</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
-<section id="basic-construction" class="slide level2">
-<h2>Basic construction</h2>
-<div>
-<ul>
-<li>Start with the biplot() function</li>
-</ul>
-<div class="cell">
+<section id="step-1-biplot" class="slide level2">
+<h2>Step 1: <strong>biplot()</strong></h2>
+<p>This is the data preparation step: centering (TRUE), scaling (FALSE), group identification prepare the data and perform the required computations before the biplot construction. ::: nonincremental</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<pre><code>function (x, ...) 
-NULL</code></pre>
+<pre><code>#&gt; function (data, group.aes = NULL, center = TRUE, scaled = FALSE, 
+#&gt;     Title = NULL) 
+#&gt; NULL</code></pre>
 </div>
 </div>
 <ul>
-<li>This will prepare the data and perform the required computations before the biplot construction</li>
-<li>All other functions will follow with a pipe ( |&gt; )</li>
-<li>Use the preferred biplot: PCA(), CVA() - available in current version</li>
-<li>Now a number of formatting changes can be made by calling approproriate functions.</li>
+<li><p><span style="font-family: 'Courier New'">data</span>     A dataframe or matrix containing all variables the user wants to analyse</p></li>
+<li><p><span style="font-family: 'Courier New'">group.aes</span>  Variable from the data to be used as a grouping variable</p></li>
+<li><p><span style="font-family: 'Courier New'">center</span>   TRUE or FALSE</p></li>
+<li><p><span style="font-family: 'Courier New'">scaled</span>    TRUE or FALSE</p></li>
+<li><p><span style="font-family: 'Courier New'">Title</span>     Title of the biplot to be rendered</p></li>
+<li><p>All other functions will follow with a pipe ( |&gt; )</p></li>
+<li><p>Use the preferred biplot: PCA(), CVA() - available in current version</p></li>
+<li><p>Now a number of formatting changes can be made by calling approproriate functions. :::</p></li>
 </ul>
-</div>
 </section>
 <section id="slide-2" class="slide level2">
 <h2>Slide 2</h2>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="test-slide-incremental-bullets" class="slide level2">
 <h2>Test slide incremental bullets</h2>
 <div>

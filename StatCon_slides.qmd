@@ -15,8 +15,34 @@ title-slide-attributes:
   data-background-size: 15%
   data-background-opacity: "0.9"
   data-background-position: 95% 90%
-
 ---
+
+```{r setup}
+#| include: false
+
+library(knitr)
+options(htmltools.dir.version = FALSE, tibble.width = 45)
+opts_chunk$set(
+  echo = TRUE, 
+  warning = FALSE, 
+  message = FALSE, 
+  error=FALSE, 
+  comment = "#>",
+  fig.align = 'center', 
+  fig.width = 12, 
+  fig.height = 11, 
+  fig.show = 'hold', 
+  fig.retina = 5,
+  cache = FALSE
+)
+
+# Printing
+options(digits=2, width=120)
+
+# libraries
+library(biplotEZ)
+
+```
 
 ## Installing **biplotEZ**
 
@@ -35,45 +61,56 @@ help(package="biplotEZ")
 
 ## General notes
 
-::: {.nonincremental}
+::: nonincremental
+-   Use the native R pipe: [\|\>]{style="font-family: 'Courier New'"}\
+-   Since [%\>%]{style="font-family: 'Courier New'"} is not required, you do not have to load:
 
-- Use the native R pipe: |>
-- Since %>% is not required, you do not have to load:
 ```{r, echo = TRUE}
 library(magrittr)
 ```
 
-- To set |> as your default, change the keyboard shortcut **Ctrl-Shift-M**:
-![Global options](\images\GlobalOptions.jpg){width=200}
-![Global options](\images\NativePipe.jpg){width=350}
+-   To set [\|\>]{style="font-family: 'Courier New'"} as your default, change the keyboard shortcut **Ctrl-Shift-M**:
+
+::: {layout-ncol="2"}
+![Global options](\images\GlobalOptions.jpg){width="10%"}
+
+![Global options](\images\NativePipe.jpg){width="25%"}
+:::
 :::
 
-## Basic construction
+## Step 1: **biplot()**
 
-::: {.nonincremental}
-- Start with the biplot() function
+This is the data preparation step: centering (TRUE), scaling (FALSE), group identification prepare the data and perform the required computations before the biplot construction. ::: nonincremental
+
 ```{r, echo = FALSE, eval = TRUE}
-x <- args(biplot)
-print(x)
+args(biplot)
 ```
 
-- This will prepare the data and perform the required computations before the biplot construction
-- All other functions will follow with a pipe ( |> )
-- Use the preferred biplot: PCA(), CVA() - available in current version
-- Now a number of formatting changes can be made by calling approproriate functions.
+-   [data]{style="font-family: 'Courier New'"}     A dataframe or matrix containing all variables the user wants to analyse
 
-:::
+-   [group.aes]{style="font-family: 'Courier New'"}  Variable from the data to be used as a grouping variable
+
+-   [center]{style="font-family: 'Courier New'"}   TRUE or FALSE
+
+-   [scaled]{style="font-family: 'Courier New'"}    TRUE or FALSE
+
+-   [Title]{style="font-family: 'Courier New'"}     Title of the biplot to be rendered
+
+-   All other functions will follow with a pipe ( \|\> )
+
+-   Use the preferred biplot: PCA(), CVA() - available in current version
+
+-   Now a number of formatting changes can be made by calling approproriate functions. :::
 
 ## Slide 2
+
 ```{r, echo=TRUE}
 plot(1:10,1:10,col=1:10)
 ```
 
-
 ## Test slide incremental bullets
-::: {.incremental}
 
-- bullet 1
-- bullet 2
-
+::: incremental
+-   bullet 1
+-   bullet 2
 :::
