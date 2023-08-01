@@ -1,7 +1,7 @@
 ---
-title: "biplotEZ"
+title: "**biplotEZ**"
 subtitle: "User-friendly biplots in R" 
-author: "Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <br><br> muvisu@sun.ac.za"
+author: "<br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br><br> StatCon 2023 <br><br><br> muvisu@sun.ac.za<br><br>"
 date: "2 September 2023"
 date-format: "iso"
 format: 
@@ -62,14 +62,14 @@ help(package="biplotEZ")
 ## General notes
 
 ::: nonincremental
--   Use the native R pipe: [\|\>]{style="font-family: 'Courier New'"}\
--   Since [%\>%]{style="font-family: 'Courier New'"} is not required, you do not have to load:
+-   Use the native R pipe: [\|\>]{style="font-family: 'Noto Sans Mono', monospace"}\
+-   Since [%\>%]{style="font-family: 'Noto Sans Mono', monospace"} is not required, you do not have to load:
 
 ```{r, echo = TRUE}
 library(magrittr)
 ```
 
--   To set [\|\>]{style="font-family: 'Courier New'"} as your default, change the keyboard shortcut **Ctrl-Shift-M**:
+-   To set [\|\>]{style="font-family: 'Noto Sans Mono', monospace"} as your default, change the keyboard shortcut **Ctrl-Shift-M**:
 
 ::: {layout-ncol="2"}
 ![Global options](\images\GlobalOptions.jpg){width="10%"}
@@ -80,29 +80,36 @@ library(magrittr)
 
 ## Step 1: **biplot()**
 
-This is the data preparation step: centering (TRUE), scaling (FALSE), group identification prepare the data and perform the required computations before the biplot construction. 
 ```{r, echo = FALSE, eval = TRUE}
 args(biplot)
 ```
-::: nonincremental
--   [data]{style="font-family: 'Courier New'"}     A dataframe or matrix containing all variables the user wants to analyse
 
--   [group.aes]{style="font-family: 'Courier New'"}  Variable from the data to be used as a grouping variable
+::: {.column width="25%"}
+-   <strong style="color: #61223b"> Arguments </strong>
+    -   [data]{style="font-family: 'Noto Sans Mono', monospace"}
+    -   [group.aes]{style="font-family: 'Noto Sans Mono', monospace"}
+    -   [center]{style="font-family: 'Noto Sans Mono', monospace"}
+    -   [scaled]{style="font-family: 'Noto Sans Mono', monospace"}
+    -   [Title]{style="font-family: 'Noto Sans Mono', monospace"}
+:::
 
--   [center]{style="font-family: 'Courier New'"}   TRUE or FALSE
-
--   [scaled]{style="font-family: 'Courier New'"}    TRUE or FALSE
-
--   [Title]{style="font-family: 'Courier New'"}     Title of the biplot to be rendered
+::: {.column width="70%"}
+-   <strong style="color: #61223b"> Description </strong>
+    -   A dataframe or matrix containing all variables the user wants to analyse
+    -   Variable from the data to be used as a grouping variable
+    -   TRUE or FALSE
+    -   TRUE or FALSE
+    -   Title of the biplot to be rendered
 :::
 
 ## Step 2
+
 ::: nonincremental
 -   All other functions will follow with a pipe ( \|\> )
 
 -   Use the preferred biplot: PCA(), CVA() - available in current version
 
--   Now a number of formatting changes can be made by calling approproriate functions. 
+-   Now a number of formatting changes can be made by calling approproriate functions.
 :::
 
 ## Slide 2

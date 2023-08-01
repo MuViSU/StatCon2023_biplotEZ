@@ -10,7 +10,7 @@
 <link href="StatCon_slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <meta name="author" content="Centre for Multi-Dimensional Data Visualisation (MuViSU)    StatCon 2023    muvisu@sun.ac.za">
+  <meta name="author" content="  Centre for Multi-Dimensional Data Visualisation (MuViSU)     StatCon 2023     muvisu@sun.ac.za  ">
   <meta name="dcterms.date" content="2023-09-02">
   <title>biplotEZ</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -391,13 +391,13 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#61223b" data-background-image="images//SU_vertical.jpg" data-background-opacity="0.9" data-background-position="95% 90%" data-background-size="15%" class="quarto-title-block center">
-  <h1 class="title">biplotEZ</h1>
+  <h1 class="title"><strong>biplotEZ</strong></h1>
   <p class="subtitle">User-friendly biplots in R</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <br><br> muvisu@sun.ac.za 
+<br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br><br> StatCon 2023 <br><br><br> muvisu@sun.ac.za<br><br> 
 </div>
 </div>
 </div>
@@ -423,15 +423,15 @@ Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <
 <h2>General notes</h2>
 <div>
 <ul>
-<li>Use the native R pipe: <span style="font-family: 'Courier New'">|&gt;</span><br>
+<li>Use the native R pipe: <span style="font-family: 'Noto Sans Mono', monospace">|&gt;</span><br>
 </li>
-<li>Since <span style="font-family: 'Courier New'">%&gt;%</span> is not required, you do not have to load:</li>
+<li>Since <span style="font-family: 'Noto Sans Mono', monospace">%&gt;%</span> is not required, you do not have to load:</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>To set <span style="font-family: 'Courier New'">|&gt;</span> as your default, change the keyboard shortcut <strong>Ctrl-Shift-M</strong>:</li>
+<li>To set <span style="font-family: 'Noto Sans Mono', monospace">|&gt;</span> as your default, change the keyboard shortcut <strong>Ctrl-Shift-M</strong>:</li>
 </ul>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -457,7 +457,6 @@ Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <
 </section>
 <section id="step-1-biplot" class="slide level2">
 <h2>Step 1: <strong>biplot()</strong></h2>
-<p>This is the data preparation step: centering (TRUE), scaling (FALSE), group identification prepare the data and perform the required computations before the biplot construction.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; function (data, group.aes = NULL, center = TRUE, scaled = FALSE, 
@@ -465,13 +464,28 @@ Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br> StatCon 2023 <
 #&gt; NULL</code></pre>
 </div>
 </div>
-<div>
+<div class="column" style="width:25%;">
 <ul>
-<li><p><span style="font-family: 'Courier New'">data</span>     A dataframe or matrix containing all variables the user wants to analyse</p></li>
-<li><p><span style="font-family: 'Courier New'">group.aes</span>  Variable from the data to be used as a grouping variable</p></li>
-<li><p><span style="font-family: 'Courier New'">center</span>   TRUE or FALSE</p></li>
-<li><p><span style="font-family: 'Courier New'">scaled</span>    TRUE or FALSE</p></li>
-<li><p><span style="font-family: 'Courier New'">Title</span>     Title of the biplot to be rendered</p></li>
+<li><strong style="color: #61223b"> Arguments </strong>
+<ul>
+<li><span style="font-family: 'Noto Sans Mono', monospace">data</span></li>
+<li><span style="font-family: 'Noto Sans Mono', monospace">group.aes</span></li>
+<li><span style="font-family: 'Noto Sans Mono', monospace">center</span></li>
+<li><span style="font-family: 'Noto Sans Mono', monospace">scaled</span></li>
+<li><span style="font-family: 'Noto Sans Mono', monospace">Title</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="column" style="width:70%;">
+<ul>
+<li><strong style="color: #61223b"> Description </strong>
+<ul>
+<li>A dataframe or matrix containing all variables the user wants to analyse</li>
+<li>Variable from the data to be used as a grouping variable</li>
+<li>TRUE or FALSE</li>
+<li>TRUE or FALSE</li>
+<li>Title of the biplot to be rendered</li>
+</ul></li>
 </ul>
 </div>
 </section>
