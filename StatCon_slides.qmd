@@ -80,12 +80,11 @@ library(magrittr)
 
 ## Step 1: **biplot()**
 
-This is the data preparation step: centering (TRUE), scaling (FALSE), group identification prepare the data and perform the required computations before the biplot construction. ::: nonincremental
-
+This is the data preparation step: centering (TRUE), scaling (FALSE), group identification prepare the data and perform the required computations before the biplot construction. 
 ```{r, echo = FALSE, eval = TRUE}
 args(biplot)
 ```
-
+::: nonincremental
 -   [data]{style="font-family: 'Courier New'"}     A dataframe or matrix containing all variables the user wants to analyse
 
 -   [group.aes]{style="font-family: 'Courier New'"}  Variable from the data to be used as a grouping variable
@@ -95,12 +94,16 @@ args(biplot)
 -   [scaled]{style="font-family: 'Courier New'"}    TRUE or FALSE
 
 -   [Title]{style="font-family: 'Courier New'"}     Title of the biplot to be rendered
+:::
 
+## Step 2
+::: nonincremental
 -   All other functions will follow with a pipe ( \|\> )
 
 -   Use the preferred biplot: PCA(), CVA() - available in current version
 
--   Now a number of formatting changes can be made by calling approproriate functions. :::
+-   Now a number of formatting changes can be made by calling approproriate functions. 
+:::
 
 ## Slide 2
 
