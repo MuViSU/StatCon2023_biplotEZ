@@ -49,13 +49,13 @@ $linkColor: #9fa997;
 $linkColorHover: darken( $linkColor, 20% );
 
 // Text selection
-$selectionBackgroundColor: #FF5E99;
+$selectionBackgroundColor: rgb(44,204,211);
 $selectionColor: #FFFFFF;
 
 // start using css here
 h1 {
   font-family: 'Raleway', sans-serif;
-  color: #61223b;
+  color: rgb(183,153,98);
   font-size: 72px;
   font-weight: bold;
 }
@@ -63,15 +63,22 @@ h1 {
 // start using css here
 #title-slide > h1 {
   font-family: 'Raleway', sans-serif;
-  color: rgb(183,153,98);
+  color: #61223b;
   font-size: 72px;
   font-weight: bold;
 }
 
-// Styling title slide
-#title-slide .author {
+#title-slide .subtitle {
   font-family: 'Raleway', sans-serif;
-  color: rgb(183,153,98);
+  color: rgb(100,51,53);
+  position: relative;
+  font-weight: medium;
+}
+
+// Styling title slide
+#title-slide .date {
+  font-family: 'Raleway', sans-serif;
+  color: rgb(166,10,61);
   position: relative;
   font-weight: medium;
 }

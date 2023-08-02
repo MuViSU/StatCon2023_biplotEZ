@@ -10,7 +10,6 @@
 <link href="StatCon_slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <meta name="author" content="  Centre for Multi-Dimensional Data Visualisation (MuViSU)     StatCon 2023     muvisu@sun.ac.za  ">
   <meta name="dcterms.date" content="2023-09-02">
   <title>biplotEZ</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -390,16 +389,11 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#61223b" data-background-image="images//SU_vertical.jpg" data-background-opacity="0.9" data-background-position="95% 90%" data-background-size="15%" class="quarto-title-block center">
+<section id="title-slide" data-background-color="rgb(183,153,98)" data-background-image="images//SU_vertical.jpg" data-background-opacity="0.9" data-background-position="95% 90%" data-background-size="15%" class="quarto-title-block center">
   <h1 class="title"><strong>biplotEZ</strong></h1>
-  <p class="subtitle">User-friendly biplots in R</p>
+  <p class="subtitle">User-friendly biplots in R<br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br><strong>StatCon 2023</strong></p>
 
 <div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-<br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br><br><br> StatCon 2023 <br><br><br> muvisu@sun.ac.za<br><br> 
-</div>
-</div>
 </div>
 
   <p class="date">2023-09-02</p>
@@ -455,65 +449,1856 @@
 </div>
 </div>
 </section>
-<section id="step-1-biplot" class="slide level2">
-<h2>Step 1: <strong>biplot()</strong></h2>
+<section id="functions-in-current-version" class="slide level2">
+<h2>Functions in current version</h2>
+<ul>
+<li>Use the following function to obtain a list of available functions in a package: <span class="math inline">\(~\)</span></li>
+</ul>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">lsf.str</span>(<span class="st">"package:biplotEZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; function (data, group.aes = NULL, center = TRUE, scaled = FALSE, 
-#&gt;     Title = NULL) 
-#&gt; NULL</code></pre>
+<pre><code># alpha.bags : function (bp, alpha = 0.95, which = NULL, col = ez.col, lty = 1, lwd = 1, max = 2500)  
+# axes : function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), lwd = 1, lty = 1, label.dir = "Orthog", 
+#     label.col = col, label.cex = 0.75, label.dist = 0, ticks = 5, tick.col = col, tick.size = 1, tick.label = T, 
+#     tick.label.col = tick.col, tick.label.cex = 0.6, tick.label.side = "left", tick.label.offset = 0.5, tick.label.pos = 1, 
+#     predict.col = col, predict.lwd = lwd, predict.lty = lty, ax.names = X.names, orthogx = 0, orthogy = 0)  
+# biplot : function (data, group.aes = NULL, center = TRUE, scaled = FALSE, Title = NULL)  
+# concentration.ellipse : function (bp, df = 2, kappa = NULL, which = NULL, alpha = 0.95, col = ez.col, lty = 1, lwd = 1, alpha.transparency = 0.5)  
+# legend.type : function (bp, samples = F, means = F, bags = F, new = FALSE, ...)  
+# PCA : function (bp, dim.biplot = c(2, 1, 3), e.vects = 1:ncol(bp$X), group.aes = NULL, correlation.biplot = FALSE, ...)  
+# samples : function (bp, col = ez.col, pch = 3, cex = 1, label = F, label.cex = 0.75, label.side = "bottom", connected = F, 
+#     alpha = 1)</code></pre>
 </div>
-</div>
-<div class="column" style="width:25%;">
-<ul>
-<li><strong style="color: #61223b"> Arguments </strong>
-<ul>
-<li><span style="font-family: 'Noto Sans Mono', monospace">data</span></li>
-<li><span style="font-family: 'Noto Sans Mono', monospace">group.aes</span></li>
-<li><span style="font-family: 'Noto Sans Mono', monospace">center</span></li>
-<li><span style="font-family: 'Noto Sans Mono', monospace">scaled</span></li>
-<li><span style="font-family: 'Noto Sans Mono', monospace">Title</span></li>
-</ul></li>
-</ul>
-</div>
-<div class="column" style="width:70%;">
-<ul>
-<li><strong style="color: #61223b"> Description </strong>
-<ul>
-<li>A dataframe or matrix containing all variables the user wants to analyse</li>
-<li>Variable from the data to be used as a grouping variable</li>
-<li>TRUE or FALSE</li>
-<li>TRUE or FALSE</li>
-<li>Title of the biplot to be rendered</li>
-</ul></li>
-</ul>
 </div>
 </section>
-<section id="step-2" class="slide level2">
-<h2>Step 2</h2>
-<div>
+<section id="flow-of-functions" class="slide level2">
+<h2>Flow of functions</h2>
 <ul>
-<li><p>All other functions will follow with a pipe ( |&gt; )</p></li>
-<li><p>Use the preferred biplot: PCA(), CVA() - available in current version</p></li>
-<li><p>Now a number of formatting changes can be made by calling approproriate functions.</p></li>
+<li>Start with <span style="font-family: 'Noto Sans Mono', monospace">biplot()</span>
+<ul>
+<li>Use the preferred biplot: <span style="font-family: 'Noto Sans Mono', monospace">PCA()</span> and <span style="font-family: 'Noto Sans Mono', monospace">CVA()</span> available in current version</li>
+<li>Format <span style="font-family: 'Noto Sans Mono', monospace">samples()</span> and <span style="font-family: 'Noto Sans Mono', monospace">axes()</span></li>
+<li>Add <span style="font-family: 'Noto Sans Mono', monospace">alpha.bags()</span> or <span style="font-family: 'Noto Sans Mono', monospace">concentration.ellipse()</span></li>
+<li>Add a <span style="font-family: 'Noto Sans Mono', monospace">legend.type()</span></li>
+</ul></li>
+<li>End with <span style="font-family: 'Noto Sans Mono', monospace">plot()</span></li>
 </ul>
-</div>
+<p>Use pipe ( |&gt; ) between each subsequent function. The order in which functions are applied between <span style="font-family: 'Noto Sans Mono', monospace">biplot()</span> and <span style="font-family: 'Noto Sans Mono', monospace">plot()</span> does not make a difference.</p>
 </section>
-<section id="slide-2" class="slide level2">
-<h2>Slide 2</h2>
+<section id="simple-example-for-pca-biplot" class="slide level2">
+<h2>Simple example for PCA biplot</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">samples</span>(<span class="at">col=</span><span class="st">"purple"</span>,<span class="at">pch=</span><span class="dv">15</span>) <span class="sc">|&gt;</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
-<section id="test-slide-incremental-bullets" class="slide level2">
-<h2>Test slide incremental bullets</h2>
-<div>
-<ul>
-<li class="fragment">bullet 1</li>
-<li class="fragment">bullet 2</li>
-</ul>
+<section id="first-step-biplot" class="slide level2">
+<h2>First step: <span style="font-family: 'Noto Sans Mono', monospace">biplot()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (data, group.aes = NULL, center = TRUE, scaled = FALSE, 
+#     Title = NULL) 
+# NULL</code></pre>
 </div>
+</div>
+<table>
+<colgroup>
+<col style="width: 32%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">data</span></td>
+<td>A dataframe or matrix containing all variables the user wants to analyse.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">group.aes</span></td>
+<td>Variable from the data to be used as a grouping variable.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">center</span></td>
+<td>TRUE or FALSE</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">scaled</span></td>
+<td>TRUE or FALSE</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">Title</span></td>
+<td>Title of the biplot to be rendered.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="first-step-biplot---example" class="slide level2">
+<h2>First step: <span style="font-family: 'Noto Sans Mono', monospace">biplot()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">biplot</span>(<span class="at">data =</span> iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># $X
+#     Sepal.Length Sepal.Width Petal.Length Petal.Width
+# 1         -0.743       0.443       -2.358    -0.99933
+# 2         -0.943      -0.057       -2.358    -0.99933
+# 3         -1.143       0.143       -2.458    -0.99933
+# 4         -1.243       0.043       -2.258    -0.99933
+# 5         -0.843       0.543       -2.358    -0.99933
+# 6         -0.443       0.843       -2.058    -0.79933
+# 7         -1.243       0.343       -2.358    -0.89933
+# 8         -0.843       0.343       -2.258    -0.99933
+# 9         -1.443      -0.157       -2.358    -0.99933
+# 10        -0.943       0.043       -2.258    -1.09933
+# 11        -0.443       0.643       -2.258    -0.99933
+# 12        -1.043       0.343       -2.158    -0.99933
+# 13        -1.043      -0.057       -2.358    -1.09933
+# 14        -1.543      -0.057       -2.658    -1.09933
+# 15        -0.043       0.943       -2.558    -0.99933
+# 16        -0.143       1.343       -2.258    -0.79933
+# 17        -0.443       0.843       -2.458    -0.79933
+# 18        -0.743       0.443       -2.358    -0.89933
+# 19        -0.143       0.743       -2.058    -0.89933
+# 20        -0.743       0.743       -2.258    -0.89933
+# 21        -0.443       0.343       -2.058    -0.99933
+# 22        -0.743       0.643       -2.258    -0.79933
+# 23        -1.243       0.543       -2.758    -0.99933
+# 24        -0.743       0.243       -2.058    -0.69933
+# 25        -1.043       0.343       -1.858    -0.99933
+# 26        -0.843      -0.057       -2.158    -0.99933
+# 27        -0.843       0.343       -2.158    -0.79933
+# 28        -0.643       0.443       -2.258    -0.99933
+# 29        -0.643       0.343       -2.358    -0.99933
+# 30        -1.143       0.143       -2.158    -0.99933
+# 31        -1.043       0.043       -2.158    -0.99933
+# 32        -0.443       0.343       -2.258    -0.79933
+# 33        -0.643       1.043       -2.258    -1.09933
+# 34        -0.343       1.143       -2.358    -0.99933
+# 35        -0.943       0.043       -2.258    -0.99933
+# 36        -0.843       0.143       -2.558    -0.99933
+# 37        -0.343       0.443       -2.458    -0.99933
+# 38        -0.943       0.543       -2.358    -1.09933
+# 39        -1.443      -0.057       -2.458    -0.99933
+# 40        -0.743       0.343       -2.258    -0.99933
+# 41        -0.843       0.443       -2.458    -0.89933
+# 42        -1.343      -0.757       -2.458    -0.89933
+# 43        -1.443       0.143       -2.458    -0.99933
+# 44        -0.843       0.443       -2.158    -0.59933
+# 45        -0.743       0.743       -1.858    -0.79933
+# 46        -1.043      -0.057       -2.358    -0.89933
+# 47        -0.743       0.743       -2.158    -0.99933
+# 48        -1.243       0.143       -2.358    -0.99933
+# 49        -0.543       0.643       -2.258    -0.99933
+# 50        -0.843       0.243       -2.358    -0.99933
+# 51         1.157       0.143        0.942     0.20067
+# 52         0.557       0.143        0.742     0.30067
+# 53         1.057       0.043        1.142     0.30067
+# 54        -0.343      -0.757        0.242     0.10067
+# 55         0.657      -0.257        0.842     0.30067
+# 56        -0.143      -0.257        0.742     0.10067
+# 57         0.457       0.243        0.942     0.40067
+# 58        -0.943      -0.657       -0.458    -0.19933
+# 59         0.757      -0.157        0.842     0.10067
+# 60        -0.643      -0.357        0.142     0.20067
+# 61        -0.843      -1.057       -0.258    -0.19933
+# 62         0.057      -0.057        0.442     0.30067
+# 63         0.157      -0.857        0.242    -0.19933
+# 64         0.257      -0.157        0.942     0.20067
+# 65        -0.243      -0.157       -0.158     0.10067
+# 66         0.857       0.043        0.642     0.20067
+# 67        -0.243      -0.057        0.742     0.30067
+# 68        -0.043      -0.357        0.342    -0.19933
+# 69         0.357      -0.857        0.742     0.30067
+# 70        -0.243      -0.557        0.142    -0.09933
+# 71         0.057       0.143        1.042     0.60067
+# 72         0.257      -0.257        0.242     0.10067
+# 73         0.457      -0.557        1.142     0.30067
+# 74         0.257      -0.257        0.942     0.00067
+# 75         0.557      -0.157        0.542     0.10067
+# 76         0.757      -0.057        0.642     0.20067
+# 77         0.957      -0.257        1.042     0.20067
+# 78         0.857      -0.057        1.242     0.50067
+# 79         0.157      -0.157        0.742     0.30067
+# 80        -0.143      -0.457       -0.258    -0.19933
+# 81        -0.343      -0.657        0.042    -0.09933
+# 82        -0.343      -0.657       -0.058    -0.19933
+# 83        -0.043      -0.357        0.142     0.00067
+# 84         0.157      -0.357        1.342     0.40067
+# 85        -0.443      -0.057        0.742     0.30067
+# 86         0.157       0.343        0.742     0.40067
+# 87         0.857       0.043        0.942     0.30067
+# 88         0.457      -0.757        0.642     0.10067
+# 89        -0.243      -0.057        0.342     0.10067
+# 90        -0.343      -0.557        0.242     0.10067
+# 91        -0.343      -0.457        0.642     0.00067
+# 92         0.257      -0.057        0.842     0.20067
+# 93        -0.043      -0.457        0.242     0.00067
+# 94        -0.843      -0.757       -0.458    -0.19933
+# 95        -0.243      -0.357        0.442     0.10067
+# 96        -0.143      -0.057        0.442     0.00067
+# 97        -0.143      -0.157        0.442     0.10067
+# 98         0.357      -0.157        0.542     0.10067
+# 99        -0.743      -0.557       -0.758    -0.09933
+# 100       -0.143      -0.257        0.342     0.10067
+# 101        0.457       0.243        2.242     1.30067
+# 102       -0.043      -0.357        1.342     0.70067
+# 103        1.257      -0.057        2.142     0.90067
+# 104        0.457      -0.157        1.842     0.60067
+# 105        0.657      -0.057        2.042     1.00067
+# 106        1.757      -0.057        2.842     0.90067
+# 107       -0.943      -0.557        0.742     0.50067
+# 108        1.457      -0.157        2.542     0.60067
+# 109        0.857      -0.557        2.042     0.60067
+# 110        1.357       0.543        2.342     1.30067
+# 111        0.657       0.143        1.342     0.80067
+# 112        0.557      -0.357        1.542     0.70067
+# 113        0.957      -0.057        1.742     0.90067
+# 114       -0.143      -0.557        1.242     0.80067
+# 115       -0.043      -0.257        1.342     1.20067
+# 116        0.557       0.143        1.542     1.10067
+# 117        0.657      -0.057        1.742     0.60067
+# 118        1.857       0.743        2.942     1.00067
+# 119        1.857      -0.457        3.142     1.10067
+# 120        0.157      -0.857        1.242     0.30067
+# 121        1.057       0.143        1.942     1.10067
+# 122       -0.243      -0.257        1.142     0.80067
+# 123        1.857      -0.257        2.942     0.80067
+# 124        0.457      -0.357        1.142     0.60067
+# 125        0.857       0.243        1.942     0.90067
+# 126        1.357       0.143        2.242     0.60067
+# 127        0.357      -0.257        1.042     0.60067
+# 128        0.257      -0.057        1.142     0.60067
+# 129        0.557      -0.257        1.842     0.90067
+# 130        1.357      -0.057        2.042     0.40067
+# 131        1.557      -0.257        2.342     0.70067
+# 132        2.057       0.743        2.642     0.80067
+# 133        0.557      -0.257        1.842     1.00067
+# 134        0.457      -0.257        1.342     0.30067
+# 135        0.257      -0.457        1.842     0.20067
+# 136        1.857      -0.057        2.342     1.10067
+# 137        0.457       0.343        1.842     1.20067
+# 138        0.557       0.043        1.742     0.60067
+# 139        0.157      -0.057        1.042     0.60067
+# 140        1.057       0.043        1.642     0.90067
+# 141        0.857       0.043        1.842     1.20067
+# 142        1.057       0.043        1.342     1.10067
+# 143       -0.043      -0.357        1.342     0.70067
+# 144        0.957       0.143        2.142     1.10067
+# 145        0.857       0.243        1.942     1.30067
+# 146        0.857      -0.057        1.442     1.10067
+# 147        0.457      -0.557        1.242     0.70067
+# 148        0.657      -0.057        1.442     0.80067
+# 149        0.357       0.343        1.642     1.10067
+# 150        0.057      -0.057        1.342     0.60067
+# attr(,"scaled:center")
+# Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+#          5.8          3.1          3.8          1.2 
+# 
+# $Xcat
+#        Species
+# 1       setosa
+# 2       setosa
+# 3       setosa
+# 4       setosa
+# 5       setosa
+# 6       setosa
+# 7       setosa
+# 8       setosa
+# 9       setosa
+# 10      setosa
+# 11      setosa
+# 12      setosa
+# 13      setosa
+# 14      setosa
+# 15      setosa
+# 16      setosa
+# 17      setosa
+# 18      setosa
+# 19      setosa
+# 20      setosa
+# 21      setosa
+# 22      setosa
+# 23      setosa
+# 24      setosa
+# 25      setosa
+# 26      setosa
+# 27      setosa
+# 28      setosa
+# 29      setosa
+# 30      setosa
+# 31      setosa
+# 32      setosa
+# 33      setosa
+# 34      setosa
+# 35      setosa
+# 36      setosa
+# 37      setosa
+# 38      setosa
+# 39      setosa
+# 40      setosa
+# 41      setosa
+# 42      setosa
+# 43      setosa
+# 44      setosa
+# 45      setosa
+# 46      setosa
+# 47      setosa
+# 48      setosa
+# 49      setosa
+# 50      setosa
+# 51  versicolor
+# 52  versicolor
+# 53  versicolor
+# 54  versicolor
+# 55  versicolor
+# 56  versicolor
+# 57  versicolor
+# 58  versicolor
+# 59  versicolor
+# 60  versicolor
+# 61  versicolor
+# 62  versicolor
+# 63  versicolor
+# 64  versicolor
+# 65  versicolor
+# 66  versicolor
+# 67  versicolor
+# 68  versicolor
+# 69  versicolor
+# 70  versicolor
+# 71  versicolor
+# 72  versicolor
+# 73  versicolor
+# 74  versicolor
+# 75  versicolor
+# 76  versicolor
+# 77  versicolor
+# 78  versicolor
+# 79  versicolor
+# 80  versicolor
+# 81  versicolor
+# 82  versicolor
+# 83  versicolor
+# 84  versicolor
+# 85  versicolor
+# 86  versicolor
+# 87  versicolor
+# 88  versicolor
+# 89  versicolor
+# 90  versicolor
+# 91  versicolor
+# 92  versicolor
+# 93  versicolor
+# 94  versicolor
+# 95  versicolor
+# 96  versicolor
+# 97  versicolor
+# 98  versicolor
+# 99  versicolor
+# 100 versicolor
+# 101  virginica
+# 102  virginica
+# 103  virginica
+# 104  virginica
+# 105  virginica
+# 106  virginica
+# 107  virginica
+# 108  virginica
+# 109  virginica
+# 110  virginica
+# 111  virginica
+# 112  virginica
+# 113  virginica
+# 114  virginica
+# 115  virginica
+# 116  virginica
+# 117  virginica
+# 118  virginica
+# 119  virginica
+# 120  virginica
+# 121  virginica
+# 122  virginica
+# 123  virginica
+# 124  virginica
+# 125  virginica
+# 126  virginica
+# 127  virginica
+# 128  virginica
+# 129  virginica
+# 130  virginica
+# 131  virginica
+# 132  virginica
+# 133  virginica
+# 134  virginica
+# 135  virginica
+# 136  virginica
+# 137  virginica
+# 138  virginica
+# 139  virginica
+# 140  virginica
+# 141  virginica
+# 142  virginica
+# 143  virginica
+# 144  virginica
+# 145  virginica
+# 146  virginica
+# 147  virginica
+# 148  virginica
+# 149  virginica
+# 150  virginica
+# 
+# $raw.X
+#     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+# 1            5.1         3.5          1.4         0.2     setosa
+# 2            4.9         3.0          1.4         0.2     setosa
+# 3            4.7         3.2          1.3         0.2     setosa
+# 4            4.6         3.1          1.5         0.2     setosa
+# 5            5.0         3.6          1.4         0.2     setosa
+# 6            5.4         3.9          1.7         0.4     setosa
+# 7            4.6         3.4          1.4         0.3     setosa
+# 8            5.0         3.4          1.5         0.2     setosa
+# 9            4.4         2.9          1.4         0.2     setosa
+# 10           4.9         3.1          1.5         0.1     setosa
+# 11           5.4         3.7          1.5         0.2     setosa
+# 12           4.8         3.4          1.6         0.2     setosa
+# 13           4.8         3.0          1.4         0.1     setosa
+# 14           4.3         3.0          1.1         0.1     setosa
+# 15           5.8         4.0          1.2         0.2     setosa
+# 16           5.7         4.4          1.5         0.4     setosa
+# 17           5.4         3.9          1.3         0.4     setosa
+# 18           5.1         3.5          1.4         0.3     setosa
+# 19           5.7         3.8          1.7         0.3     setosa
+# 20           5.1         3.8          1.5         0.3     setosa
+# 21           5.4         3.4          1.7         0.2     setosa
+# 22           5.1         3.7          1.5         0.4     setosa
+# 23           4.6         3.6          1.0         0.2     setosa
+# 24           5.1         3.3          1.7         0.5     setosa
+# 25           4.8         3.4          1.9         0.2     setosa
+# 26           5.0         3.0          1.6         0.2     setosa
+# 27           5.0         3.4          1.6         0.4     setosa
+# 28           5.2         3.5          1.5         0.2     setosa
+# 29           5.2         3.4          1.4         0.2     setosa
+# 30           4.7         3.2          1.6         0.2     setosa
+# 31           4.8         3.1          1.6         0.2     setosa
+# 32           5.4         3.4          1.5         0.4     setosa
+# 33           5.2         4.1          1.5         0.1     setosa
+# 34           5.5         4.2          1.4         0.2     setosa
+# 35           4.9         3.1          1.5         0.2     setosa
+# 36           5.0         3.2          1.2         0.2     setosa
+# 37           5.5         3.5          1.3         0.2     setosa
+# 38           4.9         3.6          1.4         0.1     setosa
+# 39           4.4         3.0          1.3         0.2     setosa
+# 40           5.1         3.4          1.5         0.2     setosa
+# 41           5.0         3.5          1.3         0.3     setosa
+# 42           4.5         2.3          1.3         0.3     setosa
+# 43           4.4         3.2          1.3         0.2     setosa
+# 44           5.0         3.5          1.6         0.6     setosa
+# 45           5.1         3.8          1.9         0.4     setosa
+# 46           4.8         3.0          1.4         0.3     setosa
+# 47           5.1         3.8          1.6         0.2     setosa
+# 48           4.6         3.2          1.4         0.2     setosa
+# 49           5.3         3.7          1.5         0.2     setosa
+# 50           5.0         3.3          1.4         0.2     setosa
+# 51           7.0         3.2          4.7         1.4 versicolor
+# 52           6.4         3.2          4.5         1.5 versicolor
+# 53           6.9         3.1          4.9         1.5 versicolor
+# 54           5.5         2.3          4.0         1.3 versicolor
+# 55           6.5         2.8          4.6         1.5 versicolor
+# 56           5.7         2.8          4.5         1.3 versicolor
+# 57           6.3         3.3          4.7         1.6 versicolor
+# 58           4.9         2.4          3.3         1.0 versicolor
+# 59           6.6         2.9          4.6         1.3 versicolor
+# 60           5.2         2.7          3.9         1.4 versicolor
+# 61           5.0         2.0          3.5         1.0 versicolor
+# 62           5.9         3.0          4.2         1.5 versicolor
+# 63           6.0         2.2          4.0         1.0 versicolor
+# 64           6.1         2.9          4.7         1.4 versicolor
+# 65           5.6         2.9          3.6         1.3 versicolor
+# 66           6.7         3.1          4.4         1.4 versicolor
+# 67           5.6         3.0          4.5         1.5 versicolor
+# 68           5.8         2.7          4.1         1.0 versicolor
+# 69           6.2         2.2          4.5         1.5 versicolor
+# 70           5.6         2.5          3.9         1.1 versicolor
+# 71           5.9         3.2          4.8         1.8 versicolor
+# 72           6.1         2.8          4.0         1.3 versicolor
+# 73           6.3         2.5          4.9         1.5 versicolor
+# 74           6.1         2.8          4.7         1.2 versicolor
+# 75           6.4         2.9          4.3         1.3 versicolor
+# 76           6.6         3.0          4.4         1.4 versicolor
+# 77           6.8         2.8          4.8         1.4 versicolor
+# 78           6.7         3.0          5.0         1.7 versicolor
+# 79           6.0         2.9          4.5         1.5 versicolor
+# 80           5.7         2.6          3.5         1.0 versicolor
+# 81           5.5         2.4          3.8         1.1 versicolor
+# 82           5.5         2.4          3.7         1.0 versicolor
+# 83           5.8         2.7          3.9         1.2 versicolor
+# 84           6.0         2.7          5.1         1.6 versicolor
+# 85           5.4         3.0          4.5         1.5 versicolor
+# 86           6.0         3.4          4.5         1.6 versicolor
+# 87           6.7         3.1          4.7         1.5 versicolor
+# 88           6.3         2.3          4.4         1.3 versicolor
+# 89           5.6         3.0          4.1         1.3 versicolor
+# 90           5.5         2.5          4.0         1.3 versicolor
+# 91           5.5         2.6          4.4         1.2 versicolor
+# 92           6.1         3.0          4.6         1.4 versicolor
+# 93           5.8         2.6          4.0         1.2 versicolor
+# 94           5.0         2.3          3.3         1.0 versicolor
+# 95           5.6         2.7          4.2         1.3 versicolor
+# 96           5.7         3.0          4.2         1.2 versicolor
+# 97           5.7         2.9          4.2         1.3 versicolor
+# 98           6.2         2.9          4.3         1.3 versicolor
+# 99           5.1         2.5          3.0         1.1 versicolor
+# 100          5.7         2.8          4.1         1.3 versicolor
+# 101          6.3         3.3          6.0         2.5  virginica
+# 102          5.8         2.7          5.1         1.9  virginica
+# 103          7.1         3.0          5.9         2.1  virginica
+# 104          6.3         2.9          5.6         1.8  virginica
+# 105          6.5         3.0          5.8         2.2  virginica
+# 106          7.6         3.0          6.6         2.1  virginica
+# 107          4.9         2.5          4.5         1.7  virginica
+# 108          7.3         2.9          6.3         1.8  virginica
+# 109          6.7         2.5          5.8         1.8  virginica
+# 110          7.2         3.6          6.1         2.5  virginica
+# 111          6.5         3.2          5.1         2.0  virginica
+# 112          6.4         2.7          5.3         1.9  virginica
+# 113          6.8         3.0          5.5         2.1  virginica
+# 114          5.7         2.5          5.0         2.0  virginica
+# 115          5.8         2.8          5.1         2.4  virginica
+# 116          6.4         3.2          5.3         2.3  virginica
+# 117          6.5         3.0          5.5         1.8  virginica
+# 118          7.7         3.8          6.7         2.2  virginica
+# 119          7.7         2.6          6.9         2.3  virginica
+# 120          6.0         2.2          5.0         1.5  virginica
+# 121          6.9         3.2          5.7         2.3  virginica
+# 122          5.6         2.8          4.9         2.0  virginica
+# 123          7.7         2.8          6.7         2.0  virginica
+# 124          6.3         2.7          4.9         1.8  virginica
+# 125          6.7         3.3          5.7         2.1  virginica
+# 126          7.2         3.2          6.0         1.8  virginica
+# 127          6.2         2.8          4.8         1.8  virginica
+# 128          6.1         3.0          4.9         1.8  virginica
+# 129          6.4         2.8          5.6         2.1  virginica
+# 130          7.2         3.0          5.8         1.6  virginica
+# 131          7.4         2.8          6.1         1.9  virginica
+# 132          7.9         3.8          6.4         2.0  virginica
+# 133          6.4         2.8          5.6         2.2  virginica
+# 134          6.3         2.8          5.1         1.5  virginica
+# 135          6.1         2.6          5.6         1.4  virginica
+# 136          7.7         3.0          6.1         2.3  virginica
+# 137          6.3         3.4          5.6         2.4  virginica
+# 138          6.4         3.1          5.5         1.8  virginica
+# 139          6.0         3.0          4.8         1.8  virginica
+# 140          6.9         3.1          5.4         2.1  virginica
+# 141          6.7         3.1          5.6         2.4  virginica
+# 142          6.9         3.1          5.1         2.3  virginica
+# 143          5.8         2.7          5.1         1.9  virginica
+# 144          6.8         3.2          5.9         2.3  virginica
+# 145          6.7         3.3          5.7         2.5  virginica
+# 146          6.7         3.0          5.2         2.3  virginica
+# 147          6.3         2.5          5.0         1.9  virginica
+# 148          6.5         3.0          5.2         2.0  virginica
+# 149          6.2         3.4          5.4         2.3  virginica
+# 150          5.9         3.0          5.1         1.8  virginica
+# 
+# $na.action
+# NULL
+# 
+# $center
+# [1] TRUE
+# 
+# $scaled
+# [1] FALSE
+# 
+# $means
+# Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+#          5.8          3.1          3.8          1.2 
+# 
+# $sd
+# [1] 1 1 1 1
+# 
+# $n
+# [1] 150
+# 
+# $p
+# [1] 4
+# 
+# $group.aes
+#   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#  [58] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+# [115] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+# Levels: 1
+# 
+# $g.names
+# [1] "1"
+# 
+# $g
+# [1] 1
+# 
+# $Title
+# NULL
+# 
+# attr(,"class")
+# [1] "biplot"</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2-pca" class="slide level2">
+<h2>Step 2: <span style="font-family: 'Noto Sans Mono', monospace">PCA()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, dim.biplot = c(2, 1, 3), e.vects = 1:ncol(bp$X), 
+#     group.aes = NULL, correlation.biplot = FALSE, ...) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 32%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">bp</span></td>
+<td>Object of class <span style="font-family: 'Noto Sans Mono', monospace">PCA</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">dim.biplot</span></td>
+<td>Dimension of the biplot. Only values 1, 2 and 3 are accepted, with default 2.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">e.vects</span></td>
+<td>Which eigenvectors (principal components) to extract, with default <span style="font-family: 'Noto Sans Mono', monospace">1:dim.biplot</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-2-pca---continues" class="slide level2">
+<h2>Step 2: <span style="font-family: 'Noto Sans Mono', monospace">PCA()</span> - continues</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, dim.biplot = c(2, 1, 3), e.vects = 1:ncol(bp$X), 
+#     group.aes = NULL, correlation.biplot = FALSE, ...) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 32%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">group.aes</span></td>
+<td>Optional vector of the same length as the number of rows in the data matrix for differentiated aesthetics for samples.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">correlation.biplot</span></td>
+<td>If <span style="font-family: 'Noto Sans Mono', monospace">FALSE</span>, the distances between sample points are optimally approximated in the biplot. If <span style="font-family: 'Noto Sans Mono', monospace">TRUE</span>, the correlations between variables are optimally approximated by the cosine of the angles between axes. Deafult is <span style="font-family: 'Noto Sans Mono', monospace">FALSE</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-2-pca---example" class="slide level2">
+<h2>Step 2: <span style="font-family: 'Noto Sans Mono', monospace">PCA()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># $X
+#     Sepal.Length Sepal.Width Petal.Length Petal.Width
+# 1         -0.743       0.443       -2.358    -0.99933
+# 2         -0.943      -0.057       -2.358    -0.99933
+# 3         -1.143       0.143       -2.458    -0.99933
+# 4         -1.243       0.043       -2.258    -0.99933
+# 5         -0.843       0.543       -2.358    -0.99933
+# 6         -0.443       0.843       -2.058    -0.79933
+# 7         -1.243       0.343       -2.358    -0.89933
+# 8         -0.843       0.343       -2.258    -0.99933
+# 9         -1.443      -0.157       -2.358    -0.99933
+# 10        -0.943       0.043       -2.258    -1.09933
+# 11        -0.443       0.643       -2.258    -0.99933
+# 12        -1.043       0.343       -2.158    -0.99933
+# 13        -1.043      -0.057       -2.358    -1.09933
+# 14        -1.543      -0.057       -2.658    -1.09933
+# 15        -0.043       0.943       -2.558    -0.99933
+# 16        -0.143       1.343       -2.258    -0.79933
+# 17        -0.443       0.843       -2.458    -0.79933
+# 18        -0.743       0.443       -2.358    -0.89933
+# 19        -0.143       0.743       -2.058    -0.89933
+# 20        -0.743       0.743       -2.258    -0.89933
+# 21        -0.443       0.343       -2.058    -0.99933
+# 22        -0.743       0.643       -2.258    -0.79933
+# 23        -1.243       0.543       -2.758    -0.99933
+# 24        -0.743       0.243       -2.058    -0.69933
+# 25        -1.043       0.343       -1.858    -0.99933
+# 26        -0.843      -0.057       -2.158    -0.99933
+# 27        -0.843       0.343       -2.158    -0.79933
+# 28        -0.643       0.443       -2.258    -0.99933
+# 29        -0.643       0.343       -2.358    -0.99933
+# 30        -1.143       0.143       -2.158    -0.99933
+# 31        -1.043       0.043       -2.158    -0.99933
+# 32        -0.443       0.343       -2.258    -0.79933
+# 33        -0.643       1.043       -2.258    -1.09933
+# 34        -0.343       1.143       -2.358    -0.99933
+# 35        -0.943       0.043       -2.258    -0.99933
+# 36        -0.843       0.143       -2.558    -0.99933
+# 37        -0.343       0.443       -2.458    -0.99933
+# 38        -0.943       0.543       -2.358    -1.09933
+# 39        -1.443      -0.057       -2.458    -0.99933
+# 40        -0.743       0.343       -2.258    -0.99933
+# 41        -0.843       0.443       -2.458    -0.89933
+# 42        -1.343      -0.757       -2.458    -0.89933
+# 43        -1.443       0.143       -2.458    -0.99933
+# 44        -0.843       0.443       -2.158    -0.59933
+# 45        -0.743       0.743       -1.858    -0.79933
+# 46        -1.043      -0.057       -2.358    -0.89933
+# 47        -0.743       0.743       -2.158    -0.99933
+# 48        -1.243       0.143       -2.358    -0.99933
+# 49        -0.543       0.643       -2.258    -0.99933
+# 50        -0.843       0.243       -2.358    -0.99933
+# 51         1.157       0.143        0.942     0.20067
+# 52         0.557       0.143        0.742     0.30067
+# 53         1.057       0.043        1.142     0.30067
+# 54        -0.343      -0.757        0.242     0.10067
+# 55         0.657      -0.257        0.842     0.30067
+# 56        -0.143      -0.257        0.742     0.10067
+# 57         0.457       0.243        0.942     0.40067
+# 58        -0.943      -0.657       -0.458    -0.19933
+# 59         0.757      -0.157        0.842     0.10067
+# 60        -0.643      -0.357        0.142     0.20067
+# 61        -0.843      -1.057       -0.258    -0.19933
+# 62         0.057      -0.057        0.442     0.30067
+# 63         0.157      -0.857        0.242    -0.19933
+# 64         0.257      -0.157        0.942     0.20067
+# 65        -0.243      -0.157       -0.158     0.10067
+# 66         0.857       0.043        0.642     0.20067
+# 67        -0.243      -0.057        0.742     0.30067
+# 68        -0.043      -0.357        0.342    -0.19933
+# 69         0.357      -0.857        0.742     0.30067
+# 70        -0.243      -0.557        0.142    -0.09933
+# 71         0.057       0.143        1.042     0.60067
+# 72         0.257      -0.257        0.242     0.10067
+# 73         0.457      -0.557        1.142     0.30067
+# 74         0.257      -0.257        0.942     0.00067
+# 75         0.557      -0.157        0.542     0.10067
+# 76         0.757      -0.057        0.642     0.20067
+# 77         0.957      -0.257        1.042     0.20067
+# 78         0.857      -0.057        1.242     0.50067
+# 79         0.157      -0.157        0.742     0.30067
+# 80        -0.143      -0.457       -0.258    -0.19933
+# 81        -0.343      -0.657        0.042    -0.09933
+# 82        -0.343      -0.657       -0.058    -0.19933
+# 83        -0.043      -0.357        0.142     0.00067
+# 84         0.157      -0.357        1.342     0.40067
+# 85        -0.443      -0.057        0.742     0.30067
+# 86         0.157       0.343        0.742     0.40067
+# 87         0.857       0.043        0.942     0.30067
+# 88         0.457      -0.757        0.642     0.10067
+# 89        -0.243      -0.057        0.342     0.10067
+# 90        -0.343      -0.557        0.242     0.10067
+# 91        -0.343      -0.457        0.642     0.00067
+# 92         0.257      -0.057        0.842     0.20067
+# 93        -0.043      -0.457        0.242     0.00067
+# 94        -0.843      -0.757       -0.458    -0.19933
+# 95        -0.243      -0.357        0.442     0.10067
+# 96        -0.143      -0.057        0.442     0.00067
+# 97        -0.143      -0.157        0.442     0.10067
+# 98         0.357      -0.157        0.542     0.10067
+# 99        -0.743      -0.557       -0.758    -0.09933
+# 100       -0.143      -0.257        0.342     0.10067
+# 101        0.457       0.243        2.242     1.30067
+# 102       -0.043      -0.357        1.342     0.70067
+# 103        1.257      -0.057        2.142     0.90067
+# 104        0.457      -0.157        1.842     0.60067
+# 105        0.657      -0.057        2.042     1.00067
+# 106        1.757      -0.057        2.842     0.90067
+# 107       -0.943      -0.557        0.742     0.50067
+# 108        1.457      -0.157        2.542     0.60067
+# 109        0.857      -0.557        2.042     0.60067
+# 110        1.357       0.543        2.342     1.30067
+# 111        0.657       0.143        1.342     0.80067
+# 112        0.557      -0.357        1.542     0.70067
+# 113        0.957      -0.057        1.742     0.90067
+# 114       -0.143      -0.557        1.242     0.80067
+# 115       -0.043      -0.257        1.342     1.20067
+# 116        0.557       0.143        1.542     1.10067
+# 117        0.657      -0.057        1.742     0.60067
+# 118        1.857       0.743        2.942     1.00067
+# 119        1.857      -0.457        3.142     1.10067
+# 120        0.157      -0.857        1.242     0.30067
+# 121        1.057       0.143        1.942     1.10067
+# 122       -0.243      -0.257        1.142     0.80067
+# 123        1.857      -0.257        2.942     0.80067
+# 124        0.457      -0.357        1.142     0.60067
+# 125        0.857       0.243        1.942     0.90067
+# 126        1.357       0.143        2.242     0.60067
+# 127        0.357      -0.257        1.042     0.60067
+# 128        0.257      -0.057        1.142     0.60067
+# 129        0.557      -0.257        1.842     0.90067
+# 130        1.357      -0.057        2.042     0.40067
+# 131        1.557      -0.257        2.342     0.70067
+# 132        2.057       0.743        2.642     0.80067
+# 133        0.557      -0.257        1.842     1.00067
+# 134        0.457      -0.257        1.342     0.30067
+# 135        0.257      -0.457        1.842     0.20067
+# 136        1.857      -0.057        2.342     1.10067
+# 137        0.457       0.343        1.842     1.20067
+# 138        0.557       0.043        1.742     0.60067
+# 139        0.157      -0.057        1.042     0.60067
+# 140        1.057       0.043        1.642     0.90067
+# 141        0.857       0.043        1.842     1.20067
+# 142        1.057       0.043        1.342     1.10067
+# 143       -0.043      -0.357        1.342     0.70067
+# 144        0.957       0.143        2.142     1.10067
+# 145        0.857       0.243        1.942     1.30067
+# 146        0.857      -0.057        1.442     1.10067
+# 147        0.457      -0.557        1.242     0.70067
+# 148        0.657      -0.057        1.442     0.80067
+# 149        0.357       0.343        1.642     1.10067
+# 150        0.057      -0.057        1.342     0.60067
+# attr(,"scaled:center")
+# Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+#          5.8          3.1          3.8          1.2 
+# 
+# $Xcat
+# NULL
+# 
+# $raw.X
+#     Sepal.Length Sepal.Width Petal.Length Petal.Width
+# 1            5.1         3.5          1.4         0.2
+# 2            4.9         3.0          1.4         0.2
+# 3            4.7         3.2          1.3         0.2
+# 4            4.6         3.1          1.5         0.2
+# 5            5.0         3.6          1.4         0.2
+# 6            5.4         3.9          1.7         0.4
+# 7            4.6         3.4          1.4         0.3
+# 8            5.0         3.4          1.5         0.2
+# 9            4.4         2.9          1.4         0.2
+# 10           4.9         3.1          1.5         0.1
+# 11           5.4         3.7          1.5         0.2
+# 12           4.8         3.4          1.6         0.2
+# 13           4.8         3.0          1.4         0.1
+# 14           4.3         3.0          1.1         0.1
+# 15           5.8         4.0          1.2         0.2
+# 16           5.7         4.4          1.5         0.4
+# 17           5.4         3.9          1.3         0.4
+# 18           5.1         3.5          1.4         0.3
+# 19           5.7         3.8          1.7         0.3
+# 20           5.1         3.8          1.5         0.3
+# 21           5.4         3.4          1.7         0.2
+# 22           5.1         3.7          1.5         0.4
+# 23           4.6         3.6          1.0         0.2
+# 24           5.1         3.3          1.7         0.5
+# 25           4.8         3.4          1.9         0.2
+# 26           5.0         3.0          1.6         0.2
+# 27           5.0         3.4          1.6         0.4
+# 28           5.2         3.5          1.5         0.2
+# 29           5.2         3.4          1.4         0.2
+# 30           4.7         3.2          1.6         0.2
+# 31           4.8         3.1          1.6         0.2
+# 32           5.4         3.4          1.5         0.4
+# 33           5.2         4.1          1.5         0.1
+# 34           5.5         4.2          1.4         0.2
+# 35           4.9         3.1          1.5         0.2
+# 36           5.0         3.2          1.2         0.2
+# 37           5.5         3.5          1.3         0.2
+# 38           4.9         3.6          1.4         0.1
+# 39           4.4         3.0          1.3         0.2
+# 40           5.1         3.4          1.5         0.2
+# 41           5.0         3.5          1.3         0.3
+# 42           4.5         2.3          1.3         0.3
+# 43           4.4         3.2          1.3         0.2
+# 44           5.0         3.5          1.6         0.6
+# 45           5.1         3.8          1.9         0.4
+# 46           4.8         3.0          1.4         0.3
+# 47           5.1         3.8          1.6         0.2
+# 48           4.6         3.2          1.4         0.2
+# 49           5.3         3.7          1.5         0.2
+# 50           5.0         3.3          1.4         0.2
+# 51           7.0         3.2          4.7         1.4
+# 52           6.4         3.2          4.5         1.5
+# 53           6.9         3.1          4.9         1.5
+# 54           5.5         2.3          4.0         1.3
+# 55           6.5         2.8          4.6         1.5
+# 56           5.7         2.8          4.5         1.3
+# 57           6.3         3.3          4.7         1.6
+# 58           4.9         2.4          3.3         1.0
+# 59           6.6         2.9          4.6         1.3
+# 60           5.2         2.7          3.9         1.4
+# 61           5.0         2.0          3.5         1.0
+# 62           5.9         3.0          4.2         1.5
+# 63           6.0         2.2          4.0         1.0
+# 64           6.1         2.9          4.7         1.4
+# 65           5.6         2.9          3.6         1.3
+# 66           6.7         3.1          4.4         1.4
+# 67           5.6         3.0          4.5         1.5
+# 68           5.8         2.7          4.1         1.0
+# 69           6.2         2.2          4.5         1.5
+# 70           5.6         2.5          3.9         1.1
+# 71           5.9         3.2          4.8         1.8
+# 72           6.1         2.8          4.0         1.3
+# 73           6.3         2.5          4.9         1.5
+# 74           6.1         2.8          4.7         1.2
+# 75           6.4         2.9          4.3         1.3
+# 76           6.6         3.0          4.4         1.4
+# 77           6.8         2.8          4.8         1.4
+# 78           6.7         3.0          5.0         1.7
+# 79           6.0         2.9          4.5         1.5
+# 80           5.7         2.6          3.5         1.0
+# 81           5.5         2.4          3.8         1.1
+# 82           5.5         2.4          3.7         1.0
+# 83           5.8         2.7          3.9         1.2
+# 84           6.0         2.7          5.1         1.6
+# 85           5.4         3.0          4.5         1.5
+# 86           6.0         3.4          4.5         1.6
+# 87           6.7         3.1          4.7         1.5
+# 88           6.3         2.3          4.4         1.3
+# 89           5.6         3.0          4.1         1.3
+# 90           5.5         2.5          4.0         1.3
+# 91           5.5         2.6          4.4         1.2
+# 92           6.1         3.0          4.6         1.4
+# 93           5.8         2.6          4.0         1.2
+# 94           5.0         2.3          3.3         1.0
+# 95           5.6         2.7          4.2         1.3
+# 96           5.7         3.0          4.2         1.2
+# 97           5.7         2.9          4.2         1.3
+# 98           6.2         2.9          4.3         1.3
+# 99           5.1         2.5          3.0         1.1
+# 100          5.7         2.8          4.1         1.3
+# 101          6.3         3.3          6.0         2.5
+# 102          5.8         2.7          5.1         1.9
+# 103          7.1         3.0          5.9         2.1
+# 104          6.3         2.9          5.6         1.8
+# 105          6.5         3.0          5.8         2.2
+# 106          7.6         3.0          6.6         2.1
+# 107          4.9         2.5          4.5         1.7
+# 108          7.3         2.9          6.3         1.8
+# 109          6.7         2.5          5.8         1.8
+# 110          7.2         3.6          6.1         2.5
+# 111          6.5         3.2          5.1         2.0
+# 112          6.4         2.7          5.3         1.9
+# 113          6.8         3.0          5.5         2.1
+# 114          5.7         2.5          5.0         2.0
+# 115          5.8         2.8          5.1         2.4
+# 116          6.4         3.2          5.3         2.3
+# 117          6.5         3.0          5.5         1.8
+# 118          7.7         3.8          6.7         2.2
+# 119          7.7         2.6          6.9         2.3
+# 120          6.0         2.2          5.0         1.5
+# 121          6.9         3.2          5.7         2.3
+# 122          5.6         2.8          4.9         2.0
+# 123          7.7         2.8          6.7         2.0
+# 124          6.3         2.7          4.9         1.8
+# 125          6.7         3.3          5.7         2.1
+# 126          7.2         3.2          6.0         1.8
+# 127          6.2         2.8          4.8         1.8
+# 128          6.1         3.0          4.9         1.8
+# 129          6.4         2.8          5.6         2.1
+# 130          7.2         3.0          5.8         1.6
+# 131          7.4         2.8          6.1         1.9
+# 132          7.9         3.8          6.4         2.0
+# 133          6.4         2.8          5.6         2.2
+# 134          6.3         2.8          5.1         1.5
+# 135          6.1         2.6          5.6         1.4
+# 136          7.7         3.0          6.1         2.3
+# 137          6.3         3.4          5.6         2.4
+# 138          6.4         3.1          5.5         1.8
+# 139          6.0         3.0          4.8         1.8
+# 140          6.9         3.1          5.4         2.1
+# 141          6.7         3.1          5.6         2.4
+# 142          6.9         3.1          5.1         2.3
+# 143          5.8         2.7          5.1         1.9
+# 144          6.8         3.2          5.9         2.3
+# 145          6.7         3.3          5.7         2.5
+# 146          6.7         3.0          5.2         2.3
+# 147          6.3         2.5          5.0         1.9
+# 148          6.5         3.0          5.2         2.0
+# 149          6.2         3.4          5.4         2.3
+# 150          5.9         3.0          5.1         1.8
+# 
+# $na.action
+# NULL
+# 
+# $center
+# [1] TRUE
+# 
+# $scaled
+# [1] FALSE
+# 
+# $means
+# Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+#          5.8          3.1          3.8          1.2 
+# 
+# $sd
+# [1] 1 1 1 1
+# 
+# $n
+# [1] 150
+# 
+# $p
+# [1] 4
+# 
+# $group.aes
+#   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#  [58] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+# [115] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+# Levels: 1
+# 
+# $g.names
+# [1] "1"
+# 
+# $g
+# [1] 1
+# 
+# $Title
+# NULL
+# 
+# $Z
+#        [,1]    [,2]
+# 1   -2.6841 -0.3194
+# 2   -2.7141  0.1770
+# 3   -2.8890  0.1449
+# 4   -2.7453  0.3183
+# 5   -2.7287 -0.3268
+# 6   -2.2809 -0.7413
+# 7   -2.8205  0.0895
+# 8   -2.6261 -0.1634
+# 9   -2.8864  0.5783
+# 10  -2.6728  0.1138
+# 11  -2.5069 -0.6451
+# 12  -2.6128 -0.0147
+# 13  -2.7861  0.2351
+# 14  -3.2238  0.5114
+# 15  -2.6448 -1.1788
+# 16  -2.3860 -1.3381
+# 17  -2.6235 -0.8107
+# 18  -2.6483 -0.3118
+# 19  -2.1998 -0.8728
+# 20  -2.5880 -0.5136
+# 21  -2.3103 -0.3913
+# 22  -2.5437 -0.4330
+# 23  -3.2159 -0.1335
+# 24  -2.3027 -0.0987
+# 25  -2.3558  0.0373
+# 26  -2.5067  0.1460
+# 27  -2.4688 -0.1310
+# 28  -2.5623 -0.3677
+# 29  -2.6395 -0.3120
+# 30  -2.6320  0.1970
+# 31  -2.5874  0.2043
+# 32  -2.4099 -0.4109
+# 33  -2.6489 -0.8134
+# 34  -2.5987 -1.0931
+# 35  -2.6369  0.1213
+# 36  -2.8662 -0.0694
+# 37  -2.6252 -0.5994
+# 38  -2.8007 -0.2686
+# 39  -2.9805  0.4880
+# 40  -2.5900 -0.2290
+# 41  -2.7701 -0.2635
+# 42  -2.8494  0.9410
+# 43  -2.9974  0.3419
+# 44  -2.4056 -0.1889
+# 45  -2.2095 -0.4367
+# 46  -2.7145  0.2502
+# 47  -2.5381 -0.5038
+# 48  -2.8395  0.2279
+# 49  -2.5431 -0.5794
+# 50  -2.7034 -0.1077
+# 51   1.2848 -0.6852
+# 52   0.9325 -0.3183
+# 53   1.4643 -0.5043
+# 54   0.1833  0.8280
+# 55   1.0881 -0.0746
+# 56   0.6417  0.4182
+# 57   1.0951 -0.2835
+# 58  -0.7491  1.0049
+# 59   1.0441 -0.2284
+# 60  -0.0087  0.7231
+# 61  -0.5078  1.2660
+# 62   0.5117  0.1040
+# 63   0.2650  0.5500
+# 64   0.9849  0.1248
+# 65  -0.1739  0.2549
+# 66   0.9279 -0.4672
+# 67   0.6603  0.3530
+# 68   0.2361  0.3336
+# 69   0.9447  0.5431
+# 70   0.0452  0.5838
+# 71   1.1163  0.0846
+# 72   0.3579  0.0689
+# 73   1.2982  0.3278
+# 74   0.9217  0.1827
+# 75   0.7149 -0.1491
+# 76   0.9002 -0.3285
+# 77   1.3320 -0.2444
+# 78   1.5578 -0.2675
+# 79   0.8133  0.1634
+# 80  -0.3056  0.3683
+# 81  -0.0681  0.7052
+# 82  -0.1896  0.6803
+# 83   0.1364  0.3140
+# 84   1.3800  0.4210
+# 85   0.5880  0.4843
+# 86   0.8069 -0.1942
+# 87   1.2207 -0.4076
+# 88   0.8151  0.3720
+# 89   0.2460  0.2685
+# 90   0.1664  0.6819
+# 91   0.4648  0.6707
+# 92   0.8908  0.0345
+# 93   0.2305  0.4044
+# 94  -0.7045  1.0122
+# 95   0.3570  0.5049
+# 96   0.3319  0.2127
+# 97   0.3762  0.2932
+# 98   0.6426 -0.0177
+# 99  -0.9065  0.7561
+# 100  0.2990  0.3489
+# 101  2.5312  0.0098
+# 102  1.4152  0.5749
+# 103  2.6167 -0.3439
+# 104  1.9715  0.1797
+# 105  2.3500  0.0403
+# 106  3.3970 -0.5508
+# 107  0.5212  1.1928
+# 108  2.9326 -0.3555
+# 109  2.3212  0.2438
+# 110  2.9168 -0.7828
+# 111  1.6618 -0.2422
+# 112  1.8034  0.2156
+# 113  2.1656 -0.2163
+# 114  1.3462  0.7768
+# 115  1.5859  0.5396
+# 116  1.9045 -0.1193
+# 117  1.9497 -0.0419
+# 118  3.4871 -1.1757
+# 119  3.7956 -0.2573
+# 120  1.3008  0.7611
+# 121  2.4278 -0.3782
+# 122  1.1990  0.6061
+# 123  3.4999 -0.4607
+# 124  1.3888  0.2044
+# 125  2.2754 -0.3350
+# 126  2.6141 -0.5609
+# 127  1.2585  0.1797
+# 128  1.2911  0.1167
+# 129  2.1236  0.2097
+# 130  2.3880 -0.4646
+# 131  2.8417 -0.3753
+# 132  3.2307 -1.3742
+# 133  2.1594  0.2173
+# 134  1.4442  0.1434
+# 135  1.7813  0.4999
+# 136  3.0765 -0.6881
+# 137  2.1442 -0.1401
+# 138  1.9051 -0.0493
+# 139  1.1693  0.1650
+# 140  2.1076 -0.3723
+# 141  2.3142 -0.1837
+# 142  1.9223 -0.4092
+# 143  1.4152  0.5749
+# 144  2.5630 -0.2779
+# 145  2.4187 -0.3048
+# 146  1.9441 -0.1875
+# 147  1.5272  0.3753
+# 148  1.7643 -0.0789
+# 149  1.9009 -0.1166
+# 150  1.3902  0.2827
+# 
+# $Vr
+#        [,1]   [,2]
+# [1,]  0.361 -0.657
+# [2,] -0.085 -0.730
+# [3,]  0.857  0.173
+# [4,]  0.358  0.075
+# 
+# $Xhat
+#     [,1] [,2] [,3]  [,4]
+# 1    5.1  3.5 1.40 0.214
+# 2    4.7  3.2 1.46 0.240
+# 3    4.7  3.2 1.31 0.175
+# 4    4.6  3.1 1.46 0.240
+# 5    5.1  3.5 1.36 0.197
+# 6    5.5  3.8 1.68 0.326
+# 7    4.8  3.2 1.36 0.196
+# 8    5.0  3.4 1.48 0.246
+# 9    4.4  2.9 1.39 0.209
+# 10   4.8  3.2 1.49 0.250
+# 11   5.4  3.7 1.50 0.252
+# 12   4.9  3.3 1.52 0.262
+# 13   4.7  3.1 1.41 0.219
+# 14   4.3  3.0 1.08 0.083
+# 15   5.7  4.1 1.29 0.163
+# 16   5.9  4.2 1.48 0.243
+# 17   5.4  3.9 1.37 0.198
+# 18   5.1  3.5 1.44 0.227
+# 19   5.6  3.9 1.72 0.345
+# 20   5.2  3.7 1.45 0.233
+# 21   5.3  3.5 1.71 0.342
+# 22   5.2  3.6 1.50 0.255
+# 23   4.8  3.4 0.98 0.037
+# 24   5.1  3.3 1.77 0.367
+# 25   5.0  3.2 1.75 0.358
+# 26   4.8  3.2 1.64 0.312
+# 27   5.0  3.4 1.62 0.305
+# 28   5.2  3.5 1.50 0.254
+# 29   5.1  3.5 1.44 0.230
+# 30   4.8  3.1 1.54 0.271
+# 31   4.8  3.1 1.58 0.288
+# 32   5.2  3.6 1.62 0.305
+# 33   5.4  3.9 1.35 0.189
+# 34   5.6  4.1 1.34 0.186
+# 35   4.8  3.2 1.52 0.264
+# 36   4.9  3.4 1.29 0.167
+# 37   5.3  3.7 1.41 0.213
+# 38   5.0  3.5 1.31 0.176
+# 39   4.4  3.0 1.29 0.168
+# 40   5.1  3.4 1.50 0.254
+# 41   5.0  3.5 1.34 0.187
+# 42   4.2  2.6 1.48 0.249
+# 43   4.5  3.1 1.25 0.151
+# 44   5.1  3.4 1.66 0.323
+# 45   5.3  3.6 1.79 0.375
+# 46   4.7  3.1 1.48 0.246
+# 47   5.3  3.6 1.50 0.252
+# 48   4.7  3.1 1.37 0.199
+# 49   5.3  3.7 1.48 0.244
+# 50   4.9  3.4 1.42 0.223
+# 51   6.8  3.4 4.74 1.608
+# 52   6.4  3.2 4.50 1.509
+# 53   6.7  3.3 4.92 1.686
+# 54   5.4  2.4 4.06 1.328
+# 55   6.3  3.0 4.68 1.584
+# 56   5.8  2.7 4.38 1.461
+# 57   6.4  3.2 4.65 1.570
+# 58   4.9  2.4 3.29 1.007
+# 59   6.4  3.1 4.61 1.556
+# 60   5.4  2.5 3.88 1.251
+# 61   4.8  2.2 3.54 1.113
+# 62   6.0  2.9 4.21 1.391
+# 63   5.6  2.6 4.08 1.336
+# 64   6.1  2.9 4.62 1.562
+# 65   5.6  2.9 3.65 1.156
+# 66   6.5  3.3 4.47 1.497
+# 67   5.9  2.7 4.38 1.463
+# 68   5.7  2.8 4.02 1.309
+# 69   5.8  2.6 4.66 1.579
+# 70   5.5  2.6 3.90 1.260
+# 71   6.2  2.9 4.73 1.606
+# 72   5.9  3.0 4.08 1.333
+# 73   6.1  2.7 4.93 1.689
+# 74   6.1  2.8 4.58 1.543
+# 75   6.2  3.1 4.34 1.444
+# 76   6.4  3.2 4.47 1.497
+# 77   6.5  3.1 4.86 1.658
+# 78   6.6  3.1 5.05 1.737
+# 79   6.0  2.9 4.48 1.503
+# 80   5.5  2.8 3.56 1.118
+# 81   5.4  2.5 3.82 1.228
+# 82   5.3  2.6 3.71 1.183
+# 83   5.7  2.8 3.93 1.272
+# 84   6.1  2.6 5.01 1.726
+# 85   5.7  2.7 4.35 1.447
+# 86   6.3  3.1 4.42 1.474
+# 87   6.6  3.3 4.73 1.606
+# 88   5.9  2.7 4.52 1.519
+# 89   5.8  2.8 4.02 1.308
+# 90   5.5  2.5 4.02 1.310
+# 91   5.6  2.5 4.27 1.416
+# 92   6.1  3.0 4.53 1.521
+# 93   5.7  2.7 4.03 1.312
+# 94   4.9  2.4 3.33 1.023
+# 95   5.6  2.7 4.15 1.365
+# 96   5.8  2.9 4.08 1.334
+# 97   5.8  2.8 4.13 1.356
+# 98   6.1  3.0 4.31 1.428
+# 99   5.0  2.6 3.11 0.932
+# 100  5.7  2.8 4.07 1.333
+# 101  6.8  2.8 5.93 2.107
+# 102  6.0  2.5 5.07 1.750
+# 103  7.0  3.1 5.94 2.111
+# 104  6.4  2.8 5.48 1.919
+# 105  6.7  2.8 5.78 2.044
+# 106  7.4  3.2 6.57 2.375
+# 107  5.2  2.1 4.41 1.476
+# 108  7.1  3.1 6.21 2.223
+# 109  6.5  2.7 5.79 2.049
+# 110  7.4  3.4 6.12 2.185
+# 111  6.6  3.1 5.14 1.776
+# 112  6.4  2.7 5.34 1.862
+# 113  6.8  3.0 5.58 1.959
+# 114  5.8  2.4 5.05 1.740
+# 115  6.1  2.5 5.21 1.808
+# 116  6.6  3.0 5.37 1.873
+# 117  6.6  2.9 5.42 1.895
+# 118  7.9  3.6 6.54 2.360
+# 119  7.4  2.9 6.97 2.540
+# 120  5.8  2.4 5.00 1.723
+# 121  7.0  3.1 5.77 2.041
+# 122  5.9  2.5 4.89 1.675
+# 123  7.4  3.1 6.68 2.419
+# 124  6.2  2.8 4.98 1.712
+# 125  6.9  3.1 5.65 1.989
+# 126  7.2  3.2 5.90 2.094
+# 127  6.2  2.8 4.87 1.664
+# 128  6.2  2.9 4.88 1.671
+# 129  6.5  2.7 5.61 1.976
+# 130  7.0  3.2 5.72 2.020
+# 131  7.1  3.1 6.13 2.189
+# 132  7.9  3.8 6.29 2.253
+# 133  6.5  2.7 5.65 1.989
+# 134  6.3  2.8 5.02 1.728
+# 135  6.2  2.5 5.37 1.875
+# 136  7.4  3.3 6.27 2.250
+# 137  6.7  3.0 5.57 1.957
+# 138  6.6  2.9 5.38 1.878
+# 139  6.2  2.8 4.79 1.631
+# 140  6.8  3.2 5.50 1.926
+# 141  6.8  3.0 5.71 2.015
+# 142  6.8  3.2 5.33 1.857
+# 143  6.0  2.5 5.07 1.750
+# 144  7.0  3.0 5.91 2.097
+# 145  6.9  3.1 5.78 2.043
+# 146  6.7  3.0 5.39 1.882
+# 147  6.1  2.7 5.13 1.775
+# 148  6.5  3.0 5.26 1.826
+# 149  6.6  3.0 5.37 1.872
+# 150  6.2  2.7 5.00 1.719
+# attr(,"scaled:center")
+# Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+#         -5.8         -3.1         -3.8         -1.2 
+# 
+# $ax.one.unit
+#       [,1]  [,2]
+# [1,]  0.64 -1.17
+# [2,] -0.16 -1.35
+# [3,]  1.12  0.23
+# [4,]  2.67  0.56
+# 
+# attr(,"class")
+# [1] "biplot" "PCA"</code></pre>
+</div>
+</div>
+</section>
+<section id="step-3.1-samples" class="slide level2">
+<h2>Step 3.1: <span style="font-family: 'Noto Sans Mono', monospace">samples()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, col = ez.col, pch = 3, cex = 1, label = F, label.cex = 0.75, 
+#     label.side = "bottom", connected = F, alpha = 1) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 72%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">bp</span></td>
+<td>Object of class <span style="font-family: 'Noto Sans Mono', monospace">biplot</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">col</span></td>
+<td>Sample colour.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">pch</span></td>
+<td>Sample plotting character.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">cex</span></td>
+<td>Sample character expansion.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label</span></td>
+<td>Logical argument, whether samples should be labelled or not, with default <span style="font-family: 'Noto Sans Mono', monospace">FALSE</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.1-samples---continues" class="slide level2">
+<h2>Step 3.1: <span style="font-family: 'Noto Sans Mono', monospace">samples()</span> - continues</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, col = ez.col, pch = 3, cex = 1, label = F, label.cex = 0.75, 
+#     label.side = "bottom", connected = F, alpha = 1) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label.cex</span></td>
+<td>Label text expansion.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label.side</span></td>
+<td>Side of the plotting character where label appears, with default <span style="font-family: 'Noto Sans Mono', monospace">“bottom”</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">connected</span></td>
+<td>Logical argument, whether samples are connected in order of rows of data matrix, with default <span style="font-family: 'Noto Sans Mono', monospace">“FALSE”</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">alpha</span></td>
+<td>Opacity, with default <span style="font-family: 'Noto Sans Mono', monospace">1</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.1-samples---example" class="slide level2">
+<h2>Step 3.1: <span style="font-family: 'Noto Sans Mono', monospace">samples()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">samples</span>(<span class="at">col=</span><span class="st">"purple"</span>,<span class="at">pch=</span><span class="dv">15</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<section id="step-3.2-axes" class="slide level2">
+<h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), 
+#     lwd = 1, lty = 1, label.dir = "Orthog", label.col = col, 
+#     label.cex = 0.75, label.dist = 0, ticks = 5, tick.col = col, 
+#     tick.size = 1, tick.label = T, tick.label.col = tick.col, 
+#     tick.label.cex = 0.6, tick.label.side = "left", tick.label.offset = 0.5, 
+#     tick.label.pos = 1, predict.col = col, predict.lwd = lwd, 
+#     predict.lty = lty, ax.names = X.names, orthogx = 0, orthogy = 0) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">bp</span></td>
+<td>Object of class <span style="font-family: 'Noto Sans Mono', monospace">biplot</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">X.names</span></td>
+<td>Data column names for which axes should be constructed.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">which</span></td>
+<td>Column numbers for which axes should be constructed.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">col</span></td>
+<td>Axis colours.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">lwd</span></td>
+<td>Axis line widths.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.2-axes---continues" class="slide level2">
+<h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span> - continues</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), 
+#     lwd = 1, lty = 1, label.dir = "Orthog", label.col = col, 
+#     label.cex = 0.75, label.dist = 0, ticks = 5, tick.col = col, 
+#     tick.size = 1, tick.label = T, tick.label.col = tick.col, 
+#     tick.label.cex = 0.6, tick.label.side = "left", tick.label.offset = 0.5, 
+#     tick.label.pos = 1, predict.col = col, predict.lwd = lwd, 
+#     predict.lty = lty, ax.names = X.names, orthogx = 0, orthogy = 0) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">lty</span></td>
+<td>Axis line types.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label.dir</span></td>
+<td>Direction of the axis label. “Orthog”, “Hor” or “Paral”, with default <span style="font-family: 'Noto Sans Mono', monospace">“Orthog”</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label.col</span></td>
+<td>Colour of the axis label.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label.cex</span></td>
+<td>Character expansion of the axis label.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">label.dist</span></td>
+<td>Distance of the axis label from the plot.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.2-axes---continues-1" class="slide level2">
+<h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span> - continues</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), 
+#     lwd = 1, lty = 1, label.dir = "Orthog", label.col = col, 
+#     label.cex = 0.75, label.dist = 0, ticks = 5, tick.col = col, 
+#     tick.size = 1, tick.label = T, tick.label.col = tick.col, 
+#     tick.label.cex = 0.6, tick.label.side = "left", tick.label.offset = 0.5, 
+#     tick.label.pos = 1, predict.col = col, predict.lwd = lwd, 
+#     predict.lty = lty, ax.names = X.names, orthogx = 0, orthogy = 0) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">ticks</span></td>
+<td>Indicator of the number of tick marks on each axis, with default 5.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.col</span></td>
+<td>Colour of tick marks.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.size</span></td>
+<td>Size of tick marks.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.label</span></td>
+<td>Logical whether tick marks should be labelled, with default <span style="font-family: 'Noto Sans Mono', monospace">TRUE</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.label.col</span></td>
+<td>Colour of tick mark labels.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.2-axes---continues-2" class="slide level2">
+<h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span> - continues</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), 
+#     lwd = 1, lty = 1, label.dir = "Orthog", label.col = col, 
+#     label.cex = 0.75, label.dist = 0, ticks = 5, tick.col = col, 
+#     tick.size = 1, tick.label = T, tick.label.col = tick.col, 
+#     tick.label.cex = 0.6, tick.label.side = "left", tick.label.offset = 0.5, 
+#     tick.label.pos = 1, predict.col = col, predict.lwd = lwd, 
+#     predict.lty = lty, ax.names = X.names, orthogx = 0, orthogy = 0) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.label.cex</span></td>
+<td>Character expansion of of tick mark labels.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.label.side</span></td>
+<td>On which side of tick marks label should appear, with default <span style="font-family: 'Noto Sans Mono', monospace">“left”</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.label.offset</span></td>
+<td>Offset for position of tick mark labels.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">tick.label.pos</span></td>
+<td><span style="font-family: 'Noto Sans Mono', monospace">pos</span> argument for <span style="font-family: 'Noto Sans Mono', monospace">text</span> function for tick mark labels, with default <span style="font-family: 'Noto Sans Mono', monospace">1</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">predict.col</span></td>
+<td>Colour of lines showing orthogonal projection onto axes.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.2-axes---continues-3" class="slide level2">
+<h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span> - continues</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), 
+#     lwd = 1, lty = 1, label.dir = "Orthog", label.col = col, 
+#     label.cex = 0.75, label.dist = 0, ticks = 5, tick.col = col, 
+#     tick.size = 1, tick.label = T, tick.label.col = tick.col, 
+#     tick.label.cex = 0.6, tick.label.side = "left", tick.label.offset = 0.5, 
+#     tick.label.pos = 1, predict.col = col, predict.lwd = lwd, 
+#     predict.lty = lty, ax.names = X.names, orthogx = 0, orthogy = 0) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">predict.lwd</span></td>
+<td>Line width of lines showing orthogonal projection onto axes.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">predict.lty</span></td>
+<td>Line type of lines showing ortghonoal projection onto axes.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">ax.names</span></td>
+<td>User specified alternative names for variables.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">orthogx</span></td>
+<td>Horizontal translation.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">orthogy</span></td>
+<td>Vertical translation.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-3.2-axes---example" class="slide level2">
+<h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">axes</span>(<span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<section id="step-4.1-alpha.bags" class="slide level2">
+<h2>Step 4.1: <span style="font-family: 'Noto Sans Mono', monospace">alpha.bags()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, alpha = 0.95, which = NULL, col = ez.col, lty = 1, 
+#     lwd = 1, max = 2500) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">bp</span></td>
+<td>Object of class <span style="font-family: 'Noto Sans Mono', monospace">biplot</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">alpha</span></td>
+<td>Value between <span style="font-family: 'Noto Sans Mono', monospace">0</span> and <span style="font-family: 'Noto Sans Mono', monospace">1</span> to determine coverage of bag, with default <span style="font-family: 'Noto Sans Mono', monospace">0.95</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">which</span></td>
+<td>Which groups or classes to be fitted with alpha bags.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">col</span></td>
+<td>Vector of colours for the alpha bags.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-4.1-alpha.bags---example" class="slide level2">
+<h2>Step 4.1: <span style="font-family: 'Noto Sans Mono', monospace">alpha.bags()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes=</span>iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">alpha.bags</span>(<span class="at">alpha=</span><span class="fl">0.95</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Computing 0.95 -bag for setosa 
+# Computing 0.95 -bag for versicolor 
+# Computing 0.95 -bag for virginica</code></pre>
+</div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<section id="step-4.2-concentration.ellipse" class="slide level2">
+<h2>Step 4.2: <span style="font-family: 'Noto Sans Mono', monospace">concentration.ellipse()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, df = 2, kappa = NULL, which = NULL, alpha = 0.95, 
+#     col = ez.col, lty = 1, lwd = 1, alpha.transparency = 0.5) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">lty</span></td>
+<td>Vector of line types for the alpha bags.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">lwd</span></td>
+<td>Vector of line widths for the alpha bags.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">max</span></td>
+<td>Maximum number of samples to include in alpha bag calculation, with default 2500.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-4.2-concentration.ellipse---example" class="slide level2">
+<h2>Step 4.2: <span style="font-family: 'Noto Sans Mono', monospace">concentration.ellipse()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes=</span>iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">concentration.ellipse</span>(<span class="at">kappa=</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Computing 2 -ellipse for setosa 
+# Computing 2 -ellipse for versicolor 
+# Computing 2 -ellipse for virginica</code></pre>
+</div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-22-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<section id="step-5-legend.type" class="slide level2">
+<h2>Step 5: <span style="font-family: 'Noto Sans Mono', monospace">legend.type()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (bp, samples = F, means = F, bags = F, new = FALSE, 
+#     ...) 
+# NULL</code></pre>
+</div>
+</div>
+<table>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">bp</span></td>
+<td>Object of class <span style="font-family: 'Noto Sans Mono', monospace">biplot</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">samples</span></td>
+<td>Logical argument, whether legend should be printed for samples, with default <span style="font-family: 'Noto Sans Mono', monospace">“FALSE”</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">means</span></td>
+<td>Logical argument, whether legend should be printed for means, with default <span style="font-family: 'Noto Sans Mono', monospace">“FALSE”</span>.</td>
+</tr>
+<tr class="even">
+<td><span style="font-family: 'Noto Sans Mono', monospace">bags</span></td>
+<td>Logical argument, whether legend should be printed for bags, with default <span style="font-family: 'Noto Sans Mono', monospace">“FALSE”</span>.</td>
+</tr>
+<tr class="odd">
+<td><span style="font-family: 'Noto Sans Mono', monospace">new</span></td>
+<td>Logical argument, whether legend should appear on a new page, with default <span style="font-family: 'Noto Sans Mono', monospace">“FALSE”</span>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-5-legend.type---example" class="slide level2">
+<h2>Step 5: <span style="font-family: 'Noto Sans Mono', monospace">legend.type()</span> - Example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">Title=</span><span class="st">"Test biplot"</span>) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes =</span> iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>    <span class="fu">legend.type</span>(<span class="at">samples=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<section id="final-step-plot" class="slide level2">
+<h2>Final step: <span style="font-family: 'Noto Sans Mono', monospace">plot()</span></h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># function (x, y, ...) 
+# NULL</code></pre>
+</div>
+</div>
+<p>plot(x, exp.factor = 1.2, …)</p>
 <div class="footer footer-default">
 <p>https://github.com/MuViSU/biplotEZ_beta</p>
 </div>
