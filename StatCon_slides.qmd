@@ -109,12 +109,13 @@ args(biplot)
 ```
 
 | Argument                                                      | Description                                                               |
-|-----------------------|------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | [data]{style="font-family: 'Noto Sans Mono', monospace"}      | A dataframe or matrix containing all variables the user wants to analyse. |
 | [group.aes]{style="font-family: 'Noto Sans Mono', monospace"} | Variable from the data to be used as a grouping variable.                 |
 | [center]{style="font-family: 'Noto Sans Mono', monospace"}    | TRUE or FALSE                                                             |
 | [scaled]{style="font-family: 'Noto Sans Mono', monospace"}    | TRUE or FALSE                                                             |
 | [Title]{style="font-family: 'Noto Sans Mono', monospace"}     | Title of the biplot to be rendered.                                       |
+: {tbl-colwidths="[25,75]"}
 
 ## First step: [biplot()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
@@ -129,10 +130,11 @@ args(PCA)
 ```
 
 | Argument                                                       | Description                                                                                                                          |
-|-----------------------|------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}         | Object of class [PCA]{style="font-family: 'Noto Sans Mono', monospace"}.                                                             |
 | [dim.biplot]{style="font-family: 'Noto Sans Mono', monospace"} | Dimension of the biplot. Only values 1, 2 and 3 are accepted, with default 2.                                                        |
 | [e.vects]{style="font-family: 'Noto Sans Mono', monospace"}    | Which eigenvectors (principal components) to extract, with default [1:dim.biplot]{style="font-family: 'Noto Sans Mono', monospace"}. |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 2: [PCA()]{style="font-family: 'Noto Sans Mono', monospace"} - continues
 
@@ -141,9 +143,10 @@ args(PCA)
 ```
 
 | Argument                                                               | Description                                                                                                                                                                                                                                                                                                                                                                            |
-|-----------------------|------------------------------------------------|
+|------------------------------------|------------------------------------|
 | [group.aes]{style="font-family: 'Noto Sans Mono', monospace"}          | Optional vector of the same length as the number of rows in the data matrix for differentiated aesthetics for samples.                                                                                                                                                                                                                                                                 |
 | [correlation.biplot]{style="font-family: 'Noto Sans Mono', monospace"} | If [FALSE]{style="font-family: 'Noto Sans Mono', monospace"}, the distances between sample points are optimally approximated in the biplot. If [TRUE]{style="font-family: 'Noto Sans Mono', monospace"}, the correlations between variables are optimally approximated by the cosine of the angles between axes. Deafult is [FALSE]{style="font-family: 'Noto Sans Mono', monospace"}. |
+: {tbl-colwidths="[50,50]"}
 
 ## Step 2: [PCA()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
@@ -158,12 +161,13 @@ args(samples)
 ```
 
 | Argument                                                  | Description                                                                                                                          |
-|----------------------------------------------------|--------------------|
+|---------------------|---------------------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}    | Object of class [biplot]{style="font-family: 'Noto Sans Mono', monospace"}.                                                          |
 | [col]{style="font-family: 'Noto Sans Mono', monospace"}   | Sample colour.                                                                                                                       |
 | [pch]{style="font-family: 'Noto Sans Mono', monospace"}   | Sample plotting character.                                                                                                           |
 | [cex]{style="font-family: 'Noto Sans Mono', monospace"}   | Sample character expansion.                                                                                                          |
 | [label]{style="font-family: 'Noto Sans Mono', monospace"} | Logical argument, whether samples should be labelled or not, with default [FALSE]{style="font-family: 'Noto Sans Mono', monospace"}. |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 3.1: [samples()]{style="font-family: 'Noto Sans Mono', monospace"} - continues
 
@@ -172,11 +176,12 @@ args(samples)
 ```
 
 | Argument                                                       | Description                                                                                                                                                |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [label.cex]{style="font-family: 'Noto Sans Mono', monospace"}  | Label text expansion.                                                                                                                                      |
 | [label.side]{style="font-family: 'Noto Sans Mono', monospace"} | Side of the plotting character where label appears, with default ["bottom"]{style="font-family: 'Noto Sans Mono', monospace"}.                             |
 | [connected]{style="font-family: 'Noto Sans Mono', monospace"}  | Logical argument, whether samples are connected in order of rows of data matrix, with default ["FALSE"]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [alpha]{style="font-family: 'Noto Sans Mono', monospace"}      | Opacity, with default [1]{style="font-family: 'Noto Sans Mono', monospace"}.                                                                               |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 3.1: [samples()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
@@ -192,12 +197,13 @@ args(axes)
 ```
 
 | Argument                                                    | Description                                                                 |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}      | Object of class [biplot]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [X.names]{style="font-family: 'Noto Sans Mono', monospace"} | Data column names for which axes should be constructed.                     |
 | [which]{style="font-family: 'Noto Sans Mono', monospace"}   | Column numbers for which axes should be constructed.                        |
 | [col]{style="font-family: 'Noto Sans Mono', monospace"}     | Axis colours.                                                               |
 | [lwd]{style="font-family: 'Noto Sans Mono', monospace"}     | Axis line widths.                                                           |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 3.2: [axes()]{style="font-family: 'Noto Sans Mono', monospace"} - continues
 
@@ -206,12 +212,13 @@ args(axes)
 ```
 
 | Argument                                                       | Description                                                                                                                         |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [lty]{style="font-family: 'Noto Sans Mono', monospace"}        | Axis line types.                                                                                                                    |
 | [label.dir]{style="font-family: 'Noto Sans Mono', monospace"}  | Direction of the axis label. "Orthog", "Hor" or "Paral", with default ["Orthog"]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [label.col]{style="font-family: 'Noto Sans Mono', monospace"}  | Colour of the axis label.                                                                                                           |
 | [label.cex]{style="font-family: 'Noto Sans Mono', monospace"}  | Character expansion of the axis label.                                                                                              |
 | [label.dist]{style="font-family: 'Noto Sans Mono', monospace"} | Distance of the axis label from the plot.                                                                                           |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 3.2: [axes()]{style="font-family: 'Noto Sans Mono', monospace"} - continues
 
@@ -220,12 +227,13 @@ args(axes)
 ```
 
 | Argument                                                           | Description                                                                                                           |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [ticks]{style="font-family: 'Noto Sans Mono', monospace"}          | Indicator of the number of tick marks on each axis, with default 5.                                                   |
 | [tick.col]{style="font-family: 'Noto Sans Mono', monospace"}       | Colour of tick marks.                                                                                                 |
 | [tick.size]{style="font-family: 'Noto Sans Mono', monospace"}      | Size of tick marks.                                                                                                   |
 | [tick.label]{style="font-family: 'Noto Sans Mono', monospace"}     | Logical whether tick marks should be labelled, with default [TRUE]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [tick.label.col]{style="font-family: 'Noto Sans Mono', monospace"} | Colour of tick mark labels.                                                                                           |
+: {tbl-colwidths="[30,70]"}
 
 ## Step 3.2: [axes()]{style="font-family: 'Noto Sans Mono', monospace"} - continues
 
@@ -234,12 +242,13 @@ args(axes)
 ```
 
 | Argument                                                              | Description                                                                                                                                                                                                                      |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [tick.label.cex]{style="font-family: 'Noto Sans Mono', monospace"}    | Character expansion of of tick mark labels.                                                                                                                                                                                      |
 | [tick.label.side]{style="font-family: 'Noto Sans Mono', monospace"}   | On which side of tick marks label should appear, with default ["left"]{style="font-family: 'Noto Sans Mono', monospace"}.                                                                                                        |
 | [tick.label.offset]{style="font-family: 'Noto Sans Mono', monospace"} | Offset for position of tick mark labels.                                                                                                                                                                                         |
 | [tick.label.pos]{style="font-family: 'Noto Sans Mono', monospace"}    | [pos]{style="font-family: 'Noto Sans Mono', monospace"} argument for [text]{style="font-family: 'Noto Sans Mono', monospace"} function for tick mark labels, with default [1]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [predict.col]{style="font-family: 'Noto Sans Mono', monospace"}       | Colour of lines showing orthogonal projection onto axes.                                                                                                                                                                         |
+: {tbl-colwidths="[30,70]"}
 
 ## Step 3.2: [axes()]{style="font-family: 'Noto Sans Mono', monospace"} - continues
 
@@ -248,12 +257,13 @@ args(axes)
 ```
 
 | Argument                                                        | Description                                                  |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [predict.lwd]{style="font-family: 'Noto Sans Mono', monospace"} | Line width of lines showing orthogonal projection onto axes. |
 | [predict.lty]{style="font-family: 'Noto Sans Mono', monospace"} | Line type of lines showing ortghonoal projection onto axes.  |
 | [ax.names]{style="font-family: 'Noto Sans Mono', monospace"}    | User specified alternative names for variables.              |
 | [orthogx]{style="font-family: 'Noto Sans Mono', monospace"}     | Horizontal translation.                                      |
 | [orthogy]{style="font-family: 'Noto Sans Mono', monospace"}     | Vertical translation.                                        |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 3.2: [axes()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
@@ -268,11 +278,12 @@ args(alpha.bags)
 ```
 
 | Argument                                                  | Description                                                                                                                                                                                                                        |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}    | Object of class [biplot]{style="font-family: 'Noto Sans Mono', monospace"}.                                                                                                                                                        |
 | [alpha]{style="font-family: 'Noto Sans Mono', monospace"} | Value between [0]{style="font-family: 'Noto Sans Mono', monospace"} and [1]{style="font-family: 'Noto Sans Mono', monospace"} to determine coverage of bag, with default [0.95]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [which]{style="font-family: 'Noto Sans Mono', monospace"} | Which groups or classes to be fitted with alpha bags.                                                                                                                                                                              |
 | [col]{style="font-family: 'Noto Sans Mono', monospace"}   | Vector of colours for the alpha bags.                                                                                                                                                                                              |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 4.1: [alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
@@ -287,10 +298,11 @@ args(concentration.ellipse)
 ```
 
 | Argument                                                | Description                                                                       |
-|--------------------------------|----------------------------------------|
+|---------------------|---------------------------------------------------|
 | [lty]{style="font-family: 'Noto Sans Mono', monospace"} | Vector of line types for the alpha bags.                                          |
 | [lwd]{style="font-family: 'Noto Sans Mono', monospace"} | Vector of line widths for the alpha bags.                                         |
 | [max]{style="font-family: 'Noto Sans Mono', monospace"} | Maximum number of samples to include in alpha bag calculation, with default 2500. |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 4.2: [concentration.ellipse()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
@@ -305,12 +317,13 @@ args(legend.type)
 ```
 
 | Argument                                                    | Description                                                                                                                               |
-|---------------|---------------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}      | Object of class [biplot]{style="font-family: 'Noto Sans Mono', monospace"}.                                                               |
 | [samples]{style="font-family: 'Noto Sans Mono', monospace"} | Logical argument, whether legend should be printed for samples, with default ["FALSE"]{style="font-family: 'Noto Sans Mono', monospace"}. |
 | [means]{style="font-family: 'Noto Sans Mono', monospace"}   | Logical argument, whether legend should be printed for means, with default ["FALSE"]{style="font-family: 'Noto Sans Mono', monospace"}.   |
 | [bags]{style="font-family: 'Noto Sans Mono', monospace"}    | Logical argument, whether legend should be printed for bags, with default ["FALSE"]{style="font-family: 'Noto Sans Mono', monospace"}.    |
 | [new]{style="font-family: 'Noto Sans Mono', monospace"}     | Logical argument, whether legend should appear on a new page, with default ["FALSE"]{style="font-family: 'Noto Sans Mono', monospace"}.   |
+: {tbl-colwidths="[25,75]"}
 
 ## Step 5: [legend.type()]{style="font-family: 'Noto Sans Mono', monospace"} - Example
 
