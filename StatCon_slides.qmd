@@ -10,7 +10,7 @@ format:
     footer: "https://github.com/MuViSU/biplotEZ_beta"
 title-slide-attributes: 
   data-background-color: rgb(183,153,98)
-  data-background-image: "images//SU_vertical.jpg"
+  data-background-image: "SU_vertical.jpg"
   data-background-size: 15%
   data-background-opacity: "0.9"
   data-background-position: 95% 90%
@@ -43,6 +43,217 @@ library(biplotEZ)
 
 ```
 
+
+## Outline
+
+::: {.column width="45%"}
+-   <strong style="color: #61223b"> Session 1: Introduction to biplots </strong>
+    -   Introduction to biplots
+    -   PCA biplot
+    -   Getting started: biplotEZ
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+-   <strong style="color: #61223b"> Session 2: Other types of biplots </strong>
+    -   Canonical Variate Analysis biplots
+    -   CVA biplot with biplotEZ
+:::
+
+## Introduction
+
+::: incremental
+-   The biplot is a powerful and very useful data visualisation tool. Biplots makes information in a table of data become transparent, revealing the main structures in the data in a methodical way, for example patterns of correlations between variables or similarities between the observations.
+-   Consider an $n$ x $p$ data matrix containing numerical information on $p$ variables for each of $n$ samples.
+-   The $n$ samples can be represented in a two-dimensional scatter diagram, where the coordinate axes can represent any two variables.
+-   Samples can also be represented in a three-dimensional diagram developed from Cartesian geometry and conceptually in multidimensional forms in which there are many coordinate axes to represent the $n$ samples.
+:::
+
+## Scatterplot of 2 variables
+
+::: {layout="[[1],[3,1]]"}
+![](Scatterplot%201.png){height="500"} ![](Table%201.png){height="500"}
+:::
+
+## Biplots
+
+::: incremental
+-   Although two-dimensional scatter diagrams are crucial for presenting data, multidimensional scatter diagrams tend not to be.
+-   Statisticians therefore, developed methods for approximating multidimensional scatter diagrams into a biplot.
+-   A biplot is a generalisation of a two-dimensional scatter diagram of data that exists in a higher dimensional space, where information on both samples and variables can be displayed graphically.
+-   Gabriel (1971) introduced the biplot in which the samples are represented as $n$ points and the variables are represented as $p$ vectors relative to the same axes and origin.
+:::
+
+## Iris data
+
+```{r echo=TRUE}
+library(tibble)
+tibble(iris)
+summary(iris)
+```
+
+## Biplot of Iris data
+
+```{r echo=TRUE}
+library(biplotEZ)
+library(magrittr)
+biplot(iris[,1:4],iris[,5]) |> PCA() |> plot()
+```
+
+## Biplots
+
+Considerations
+
+-   the types of variables (quantitative, qualitative, ordinal, etc.);
+-   the method used for displaying samples;
+-   what the biplot will display, either for predicting a sample point or interpolating a new sample point.
+
+For now the focus will be on (1) continuous data, (2) the method used to display samples through approximations of the data, and (3) predicting samples.
+
+## Constructing a biplot
+
+::: columns
+::: {.column width="50%"}
+Data: ${\bf{X}}$
+
+```{r echo=FALSE}
+X <- as.data.frame(matrix(c(13.5471	,	12.6356	,	21.7779	,
+                            7.8248	,	4.4579	,	8.4648,
+                            15.3202	,	5.433	,	20.4339	,
+                            16.9528	,	11.8832 ,	21.8291,
+                            18.3664	,	14.733	,	28.2576,
+                            18.0205	,	9.36	,	25.1894,
+                            17.5986	,	13.0341	,	21.5221	,
+                            13.6643	,	11.2316	,	13.9913,
+                            19.3081	,	11.7703	,	28.3937	,
+                            17.7739	,	12.4688	,	19.3321,
+                            20.3395	,	10.98	,	23.1621	,
+                            15.7187	,	14.7718	,	18.7206	,
+                            11.6222	,	17.9957	,	21.4343,
+                            14.4965	,	15.3002	,	20.6371	,
+                            20.2114	,	8.0871	,	22.4164,
+                            19.5328	,	11.8101	,	22.1391,
+                            16.1871	,	10.0019	,	16.2823,
+                            17.5598	,	10.0402	,	20.3788,
+                            17.2416	,	13.5807	,	25.4979,
+                            16.2913	,	14.9305	,	22.9105,
+                            17.7401	,	15.5304	,	22.6354,
+                            8.5554	,	12.2874	,	12.9827,
+                            11.1397	,	12.4292	,	18.0374,
+                            11.993	,	13.4574	,	21.6548,
+                            10.7568	,	6.6412	,	17.6931), nrow=25,ncol=3,byrow=T))
+
+X = rbind(X[1:15,]/2.5,X[1:10,]/2.2)
+colnames(X) <- c("X1","X2","X3")
+X
+```
+:::
+
+::: {.column width="50%"}
+![](Data_in3d.png){height="300,fig-align=\"center\""}
+:::
+:::
+
+## Constructing a biplot
+
+::: columns
+::: {.column width="60%"}
+::: fragment
+Geometrically the rows of ${\bf{X}}$ are given as coordinates of $n$ samples in the $p$-dimensional space $\mathbb{R}^p$.
+:::
+
+::: fragment
+The aim is to seek an $r$-dimensional plane that contains the points whose coordinates are given by the rows of ${\bf{\hat{X}}}_{[r]}$ which minimises a least squares criterion given by, \begin{equation}
+|| {\bf{X}} - {\bf{\hat{X}}}_{[r]}||^2 = tr\{({\bf{X}} - {\bf{\hat{X}}}_{[r]})({\bf{X}} - {\bf{\hat{X}}}_{[r]})'\}.
+\end{equation}
+:::
+:::
+
+::: {.column width="40%"}
+::: fragment
+![](Pointsonplane.png){height="400,fig-align=\"center\""}
+:::
+:::
+:::
+
+::: fragment
+The best approximation that minimises the least squares criterion is the $r$-dimensional Eckart-Young approximation given by ${\bf{\hat{X}}}_{[r]} = {\bf{U}} {\bf{D}}_{[r]} {\bf{V}}'$
+:::
+
+## Representing samples
+
+::: columns
+::: {.column width="60%"}
+::: fragment
+A standard result when $r=2$ from \citep{gower1995biplots} is that the row vectors of ${\bf{\hat{X}}}_{[2]}$ are the orthogonal projections of the corresponding row vectors of ${\bf{X}}$ onto the column space of ${\bf{V}}_2$. The projections are therefore,
+
+\begin{equation}
+{\bf{X}} {\bf{V}}_2.
+\end{equation} These projections are also known as the first two principal components.
+:::
+:::
+
+::: {.column width="40%"}
+::: fragment
+![](points_in2d.png){fig-align="center"}
+:::
+:::
+:::
+
+## Representing variables
+
+The columns of ${\bf{X}}$ are approximated by the first two rows of ${\bf{V}}$, which now represent the axes for each variable.
+
+![](points_with_vectors.png){fig-align="center"}
+
+## Calibrated biplot axes
+
+We have constructed a biplot, but the variables represented by the vectors (arrows) have no calibration.
+
+That meaning, there are no markers on the vectors representing the variables analogous to ordinary scatterplots.
+
+To construct a biplot axis with relevant markers for a variable, a $(p-1)$-dimensional hyperplane $\mathscr{N}$ perpendicular to the Cartesian axis is required.
+
+## First plane
+
+From the data, $p = 3$ therefore, a two-dimensional hyperplane is constructed perpendicular to $X_1$ through a specific value of $X_1$, say $\mu$.
+
+The intersection of $\mathscr{L}$ and $\mathscr{N}$ is an $(r-1)$-dimensional intersection space, which in this case will be indicated by a line. All the points on this intersection line in $\mathscr{L}$ will predict the value for $\mu$ for the $X_1$-axis.
+
+![](First_Nplane.png){fig-align="center"}
+
+## Second plane
+
+
+The plane $\mathscr{N}$ is shifted orthogonally through another value on $X_1$ and all the points on the intersection line of $\mathscr{L}$ and $\mathscr{N}$ will predict that value that the plane goes through.
+
+![](Second_Nplane.png){fig-align="center"}
+
+## Intersection lines
+
+::: columns
+::: {.column width="60%"}
+As the plane $\mathscr{N}$ is shifted along the $X_1$-axis, a series of parallel intersection spaces is obtained.
+
+Any line passing through the origin will pass through these intersection spaces and can be used as an axis fitted with markers according to the value associated with the particular intersection space.
+
+To facilitate orthogonal projection onto the axis, similar to an ordinary scatterplot, the line orthogonal to these intersection spaces is chosen.
+:::
+
+::: {.column width="40%"}
+![](Intersection_lines.png){fig-align="center"}
+:::
+:::
+
+## PCA Biplot
+
+```{r echo=TRUE}
+biplot(X) |> PCA() |> plot()
+```
+
+
 ## Installing **biplotEZ**
 
 ```{r eval=FALSE, echo=TRUE}
@@ -71,9 +282,9 @@ library(magrittr)
 -   To set [\|\>]{style="font-family: 'Noto Sans Mono', monospace"} as your default, change the keyboard shortcut **Ctrl-Shift-M**:
 
 ::: {layout-ncol="2"}
-![Global options](\images\GlobalOptions.jpg){width="10%"}
+![Global options](GlobalOptions.jpg){width="10%"}
 
-![Global options](\images\NativePipe.jpg){width="25%"}
+![Global options](NativePipe.jpg){width="25%"}
 :::
 :::
 
