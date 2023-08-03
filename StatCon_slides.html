@@ -389,7 +389,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="rgb(183,153,98)" data-background-image="images//SU_vertical.jpg" data-background-opacity="0.9" data-background-position="95% 90%" data-background-size="15%" class="quarto-title-block center">
+<section id="title-slide" data-background-color="rgb(183,153,98)" data-background-image="SU_vertical.jpg" data-background-opacity="0.9" data-background-position="95% 90%" data-background-size="15%" class="quarto-title-block center">
   <h1 class="title"><strong>biplotEZ</strong></h1>
   <p class="subtitle">User-friendly biplots in R<br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br><strong>StatCon 2023</strong></p>
 
@@ -398,19 +398,258 @@
 
   <p class="date">2023-09-02</p>
 </section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<div class="column" style="width:45%;">
+<ul>
+<li><strong style="color: #61223b"> Session 1: Introduction to biplots </strong>
+<ul>
+<li>Introduction to biplots</li>
+<li>PCA biplot</li>
+<li>Getting started: biplotEZ</li>
+</ul></li>
+</ul>
+</div>
+<div class="column" style="width:5%;">
+
+</div>
+<div class="column" style="width:45%;">
+<ul>
+<li><strong style="color: #61223b"> Session 2: Other types of biplots </strong>
+<ul>
+<li>Canonical Variate Analysis biplots</li>
+<li>CVA biplot with biplotEZ</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
+<div>
+<ul>
+<li class="fragment">The biplot is a powerful and very useful data visualisation tool. Biplots makes information in a table of data become transparent, revealing the main structures in the data in a methodical way, for example patterns of correlations between variables or similarities between the observations.</li>
+<li class="fragment">Consider an <span class="math inline">\(n\)</span> x <span class="math inline">\(p\)</span> data matrix containing numerical information on <span class="math inline">\(p\)</span> variables for each of <span class="math inline">\(n\)</span> samples.</li>
+<li class="fragment">The <span class="math inline">\(n\)</span> samples can be represented in a two-dimensional scatter diagram, where the coordinate axes can represent any two variables.</li>
+<li class="fragment">Samples can also be represented in a three-dimensional diagram developed from Cartesian geometry and conceptually in multidimensional forms in which there are many coordinate axes to represent the <span class="math inline">\(n\)</span> samples.</li>
+</ul>
+</div>
+</section>
+<section id="scatterplot-of-2-variables" class="slide level2">
+<h2>Scatterplot of 2 variables</h2>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><img data-src="Scatterplot%201.png" height="500"> <img data-src="Table%201.png" height="500"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="biplots" class="slide level2">
+<h2>Biplots</h2>
+<div>
+<ul>
+<li class="fragment">Although two-dimensional scatter diagrams are crucial for presenting data, multidimensional scatter diagrams tend not to be.</li>
+<li class="fragment">Statisticians therefore, developed methods for approximating multidimensional scatter diagrams into a biplot.</li>
+<li class="fragment">A biplot is a generalisation of a two-dimensional scatter diagram of data that exists in a higher dimensional space, where information on both samples and variables can be displayed graphically.</li>
+<li class="fragment">Gabriel (1971) introduced the biplot in which the samples are represented as <span class="math inline">\(n\)</span> points and the variables are represented as <span class="math inline">\(p\)</span> vectors relative to the same axes and origin.</li>
+</ul>
+</div>
+</section>
+<section id="iris-data" class="slide level2">
+<h2>Iris data</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">tibble</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># # A tibble: 150 × 5
+#    Sepal.Length Sepal.Width Petal.Length
+#           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+#  1          5.1         3.5          1.4
+#  2          4.9         3            1.4
+#  3          4.7         3.2          1.3
+#  4          4.6         3.1          1.5
+#  5          5           3.6          1.4
+#  6          5.4         3.9          1.7
+#  7          4.6         3.4          1.4
+#  8          5           3.4          1.5
+#  9          4.4         2.9          1.4
+# 10          4.9         3.1          1.5
+# # ℹ 140 more rows
+# # ℹ 2 more variables: Petal.Width &lt;dbl&gt;,
+# #   Species &lt;fct&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">summary</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#   Sepal.Length  Sepal.Width   Petal.Length  Petal.Width        Species  
+#  Min.   :4.3   Min.   :2.0   Min.   :1.0   Min.   :0.1   setosa    :50  
+#  1st Qu.:5.1   1st Qu.:2.8   1st Qu.:1.6   1st Qu.:0.3   versicolor:50  
+#  Median :5.8   Median :3.0   Median :4.3   Median :1.3   virginica :50  
+#  Mean   :5.8   Mean   :3.1   Mean   :3.8   Mean   :1.2                  
+#  3rd Qu.:6.4   3rd Qu.:3.3   3rd Qu.:5.1   3rd Qu.:1.8                  
+#  Max.   :7.9   Max.   :4.4   Max.   :6.9   Max.   :2.5</code></pre>
+</div>
+</div>
+</section>
+<section id="biplot-of-iris-data" class="slide level2">
+<h2>Biplot of Iris data</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(biplotEZ)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<section id="biplots-1" class="slide level2">
+<h2>Biplots</h2>
+<p>Considerations</p>
+<ul>
+<li>the types of variables (quantitative, qualitative, ordinal, etc.);</li>
+<li>the method used for displaying samples;</li>
+<li>what the biplot will display, either for predicting a sample point or interpolating a new sample point.</li>
+</ul>
+<p>For now the focus will be on (1) continuous data, (2) the method used to display samples through approximations of the data, and (3) predicting samples.</p>
+</section>
+<section id="constructing-a-biplot" class="slide level2">
+<h2>Constructing a biplot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Data: <span class="math inline">\({\bf{X}}\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>#     X1  X2   X3
+# 1  5.4 5.1  8.7
+# 2  3.1 1.8  3.4
+# 3  6.1 2.2  8.2
+# 4  6.8 4.8  8.7
+# 5  7.3 5.9 11.3
+# 6  7.2 3.7 10.1
+# 7  7.0 5.2  8.6
+# 8  5.5 4.5  5.6
+# 9  7.7 4.7 11.4
+# 10 7.1 5.0  7.7
+# 11 8.1 4.4  9.3
+# 12 6.3 5.9  7.5
+# 13 4.6 7.2  8.6
+# 14 5.8 6.1  8.3
+# 15 8.1 3.2  9.0
+# 16 6.2 5.7  9.9
+# 17 3.6 2.0  3.8
+# 18 7.0 2.5  9.3
+# 19 7.7 5.4  9.9
+# 20 8.3 6.7 12.8
+# 21 8.2 4.3 11.4
+# 22 8.0 5.9  9.8
+# 23 6.2 5.1  6.4
+# 24 8.8 5.4 12.9
+# 25 8.1 5.7  8.8</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="Data_in3d.png"></p>
+</div>
+</div>
+</section>
+<section id="constructing-a-biplot-1" class="slide level2">
+<h2>Constructing a biplot</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="fragment">
+<p>Geometrically the rows of <span class="math inline">\({\bf{X}}\)</span> are given as coordinates of <span class="math inline">\(n\)</span> samples in the <span class="math inline">\(p\)</span>-dimensional space <span class="math inline">\(\mathbb{R}^p\)</span>.</p>
+</div>
+<div class="fragment">
+<p>The aim is to seek an <span class="math inline">\(r\)</span>-dimensional plane that contains the points whose coordinates are given by the rows of <span class="math inline">\({\bf{\hat{X}}}_{[r]}\)</span> which minimises a least squares criterion given by, <span class="math display">\[\begin{equation}
+|| {\bf{X}} - {\bf{\hat{X}}}_{[r]}||^2 = tr\{({\bf{X}} - {\bf{\hat{X}}}_{[r]})({\bf{X}} - {\bf{\hat{X}}}_{[r]})'\}.
+\end{equation}\]</span></p>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<p><img data-src="Pointsonplane.png"></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>The best approximation that minimises the least squares criterion is the <span class="math inline">\(r\)</span>-dimensional Eckart-Young approximation given by <span class="math inline">\({\bf{\hat{X}}}_{[r]} = {\bf{U}} {\bf{D}}_{[r]} {\bf{V}}'\)</span></p>
+</div>
+</section>
+<section id="representing-samples" class="slide level2">
+<h2>Representing samples</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="fragment">
+<p>A standard result when <span class="math inline">\(r=2\)</span> from is that the row vectors of <span class="math inline">\({\bf{\hat{X}}}_{[2]}\)</span> are the orthogonal projections of the corresponding row vectors of <span class="math inline">\({\bf{X}}\)</span> onto the column space of <span class="math inline">\({\bf{V}}_2\)</span>. The projections are therefore,</p>
+<p><span class="math display">\[\begin{equation}
+{\bf{X}} {\bf{V}}_2.
+\end{equation}\]</span> These projections are also known as the first two principal components.</p>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="points_in2d.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="representing-variables" class="slide level2">
+<h2>Representing variables</h2>
+<p>The columns of <span class="math inline">\({\bf{X}}\)</span> are approximated by the first two rows of <span class="math inline">\({\bf{V}}\)</span>, which now represent the axes for each variable.</p>
+
+<img data-src="points_with_vectors.png" class="r-stretch quarto-figure-center"></section>
+<section id="calibrated-biplot-axes" class="slide level2">
+<h2>Calibrated biplot axes</h2>
+<p>We have constructed a biplot, but the variables represented by the vectors (arrows) have no calibration.</p>
+<p>That meaning, there are no markers on the vectors representing the variables analogous to ordinary scatterplots.</p>
+<p>To construct a biplot axis with relevant markers for a variable, a <span class="math inline">\((p-1)\)</span>-dimensional hyperplane <span class="math inline">\(\mathscr{N}\)</span> perpendicular to the Cartesian axis is required.</p>
+</section>
+<section id="first-plane" class="slide level2">
+<h2>First plane</h2>
+<p>From the data, <span class="math inline">\(p = 3\)</span> therefore, a two-dimensional hyperplane is constructed perpendicular to <span class="math inline">\(X_1\)</span> through a specific value of <span class="math inline">\(X_1\)</span>, say <span class="math inline">\(\mu\)</span>.</p>
+<p>The intersection of <span class="math inline">\(\mathscr{L}\)</span> and <span class="math inline">\(\mathscr{N}\)</span> is an <span class="math inline">\((r-1)\)</span>-dimensional intersection space, which in this case will be indicated by a line. All the points on this intersection line in <span class="math inline">\(\mathscr{L}\)</span> will predict the value for <span class="math inline">\(\mu\)</span> for the <span class="math inline">\(X_1\)</span>-axis.</p>
+
+<img data-src="First_Nplane.png" class="r-stretch quarto-figure-center"></section>
+<section id="second-plane" class="slide level2">
+<h2>Second plane</h2>
+<p>The plane <span class="math inline">\(\mathscr{N}\)</span> is shifted orthogonally through another value on <span class="math inline">\(X_1\)</span> and all the points on the intersection line of <span class="math inline">\(\mathscr{L}\)</span> and <span class="math inline">\(\mathscr{N}\)</span> will predict that value that the plane goes through.</p>
+
+<img data-src="Second_Nplane.png" class="r-stretch quarto-figure-center"></section>
+<section id="intersection-lines" class="slide level2">
+<h2>Intersection lines</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>As the plane <span class="math inline">\(\mathscr{N}\)</span> is shifted along the <span class="math inline">\(X_1\)</span>-axis, a series of parallel intersection spaces is obtained.</p>
+<p>Any line passing through the origin will pass through these intersection spaces and can be used as an axis fitted with markers according to the value associated with the particular intersection space.</p>
+<p>To facilitate orthogonal projection onto the axis, similar to an ordinary scatterplot, the line orthogonal to these intersection spaces is chosen.</p>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Intersection_lines.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pca-biplot" class="slide level2">
+<h2>PCA Biplot</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">biplot</span>(X) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="installing-biplotez" class="slide level2">
 <h2>Installing <strong>biplotEZ</strong></h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Install from GitHub</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">install_github</span>(<span class="st">"MuViSU/biplotEZ_beta"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#check this</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(biplotEZ)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#check this</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(biplotEZ_beta)</span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Getting help                 </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">help</span>(<span class="at">package=</span><span class="st">"biplotEZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Install from GitHub</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">install_github</span>(<span class="st">"MuViSU/biplotEZ_beta"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#check this</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">library</span>(biplotEZ)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#check this</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="fu">library</span>(biplotEZ_beta)</span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># Getting help                 </span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="fu">help</span>(<span class="at">package=</span><span class="st">"biplotEZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="general-notes" class="slide level2">
@@ -422,7 +661,7 @@
 <li>Since <span style="font-family: 'Noto Sans Mono', monospace">%&gt;%</span> is not required, you do not have to load:</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>To set <span style="font-family: 'Noto Sans Mono', monospace">|&gt;</span> as your default, change the keyboard shortcut <strong>Ctrl-Shift-M</strong>:</li>
@@ -432,7 +671,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 28.6%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="\images\GlobalOptions.jpg"></p>
+<p><img data-src="GlobalOptions.jpg"></p>
 <figcaption>Global options</figcaption>
 </figure>
 </div>
@@ -440,7 +679,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 71.4%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="\images\NativePipe.jpg"></p>
+<p><img data-src="NativePipe.jpg"></p>
 <figcaption>Global options</figcaption>
 </figure>
 </div>
@@ -455,7 +694,7 @@
 <li>Use the following function to obtain a list of available functions in a package: <span class="math inline">\(~\)</span></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">lsf.str</span>(<span class="st">"package:biplotEZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">lsf.str</span>(<span class="st">"package:biplotEZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># alpha.bags : function (bp, alpha = 0.95, which = NULL, col = ez.col, lty = 1, lwd = 1, max = 2500)  
 # axes : function (bp, X.names = colnames(bp$X), which = 1:bp$p, col = grey(0.7), lwd = 1, lty = 1, label.dir = "Orthog", 
@@ -488,10 +727,10 @@
 <section id="simple-example-for-pca-biplot" class="slide level2">
 <h2>Simple example for PCA biplot</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">samples</span>(<span class="at">col=</span><span class="st">"purple"</span>,<span class="at">pch=</span><span class="dv">15</span>) <span class="sc">|&gt;</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">samples</span>(<span class="at">col=</span><span class="st">"purple"</span>,<span class="at">pch=</span><span class="dv">15</span>) <span class="sc">|&gt;</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="first-step-biplot" class="slide level2">
 <h2>First step: <span style="font-family: 'Noto Sans Mono', monospace">biplot()</span></h2>
 <div class="cell" data-layout-align="center">
@@ -539,7 +778,7 @@
 <section id="first-step-biplot---example" class="slide level2">
 <h2>First step: <span style="font-family: 'Noto Sans Mono', monospace">biplot()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">biplot</span>(<span class="at">data =</span> iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">biplot</span>(<span class="at">data =</span> iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># $X
 #     Sepal.Length Sepal.Width Petal.Length Petal.Width
@@ -1116,7 +1355,7 @@
 <section id="step-2-pca---example" class="slide level2">
 <h2>Step 2: <span style="font-family: 'Noto Sans Mono', monospace">PCA()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># $X
 #     Sepal.Length Sepal.Width Petal.Length Petal.Width
@@ -1882,10 +2121,10 @@
 <section id="step-3.1-samples---example" class="slide level2">
 <h2>Step 3.1: <span style="font-family: 'Noto Sans Mono', monospace">samples()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">samples</span>(<span class="at">col=</span><span class="st">"purple"</span>,<span class="at">pch=</span><span class="dv">15</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">samples</span>(<span class="at">col=</span><span class="st">"purple"</span>,<span class="at">pch=</span><span class="dv">15</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="step-3.2-axes" class="slide level2">
 <h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span></h2>
 <div class="cell" data-layout-align="center">
@@ -2134,10 +2373,10 @@
 <section id="step-3.2-axes---example" class="slide level2">
 <h2>Step 3.2: <span style="font-family: 'Noto Sans Mono', monospace">axes()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">axes</span>(<span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">biplot</span>(iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>() <span class="sc">|&gt;</span> <span class="fu">axes</span>(<span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-22-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="step-4.1-alpha.bags" class="slide level2">
 <h2>Step 4.1: <span style="font-family: 'Noto Sans Mono', monospace">alpha.bags()</span></h2>
 <div class="cell" data-layout-align="center">
@@ -2181,7 +2420,7 @@
 <section id="step-4.1-alpha.bags---example" class="slide level2">
 <h2>Step 4.1: <span style="font-family: 'Noto Sans Mono', monospace">alpha.bags()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes=</span>iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">alpha.bags</span>(<span class="at">alpha=</span><span class="fl">0.95</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes=</span>iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">alpha.bags</span>(<span class="at">alpha=</span><span class="fl">0.95</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Computing 0.95 -bag for setosa 
 # Computing 0.95 -bag for versicolor 
@@ -2189,7 +2428,7 @@
 </div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="step-4.2-concentration.ellipse" class="slide level2">
 <h2>Step 4.2: <span style="font-family: 'Noto Sans Mono', monospace">concentration.ellipse()</span></h2>
 <div class="cell" data-layout-align="center">
@@ -2229,7 +2468,7 @@
 <section id="step-4.2-concentration.ellipse---example" class="slide level2">
 <h2>Step 4.2: <span style="font-family: 'Noto Sans Mono', monospace">concentration.ellipse()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes=</span>iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">concentration.ellipse</span>(<span class="at">kappa=</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes=</span>iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span> <span class="fu">concentration.ellipse</span>(<span class="at">kappa=</span><span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Computing 2 -ellipse for setosa 
 # Computing 2 -ellipse for versicolor 
@@ -2237,7 +2476,7 @@
 </div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-22-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-26-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="step-5-legend.type" class="slide level2">
 <h2>Step 5: <span style="font-family: 'Noto Sans Mono', monospace">legend.type()</span></h2>
 <div class="cell" data-layout-align="center">
@@ -2285,11 +2524,11 @@
 <section id="step-5-legend.type---example" class="slide level2">
 <h2>Step 5: <span style="font-family: 'Noto Sans Mono', monospace">legend.type()</span> - Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">Title=</span><span class="st">"Test biplot"</span>) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes =</span> iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>    <span class="fu">legend.type</span>(<span class="at">samples=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">biplot</span> (iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">Title=</span><span class="st">"Test biplot"</span>) <span class="sc">|&gt;</span> <span class="fu">PCA</span>(<span class="at">group.aes =</span> iris[,<span class="dv">5</span>]) <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>    <span class="fu">legend.type</span>(<span class="at">samples=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
+<img data-src="StatCon_slides_files/figure-revealjs/unnamed-chunk-28-1.png" width="1152" class="r-stretch quarto-figure-center"></section>
 <section id="final-step-plot" class="slide level2">
 <h2>Final step: <span style="font-family: 'Noto Sans Mono', monospace">plot()</span></h2>
 <div class="cell" data-layout-align="center">
