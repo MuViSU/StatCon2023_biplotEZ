@@ -5,6 +5,7 @@ date: "2 September 2023"
 date-format: "iso"
 format: 
   revealjs:
+    self-contained: true
     theme: [serif, statcon.scss]
     slide-number: true
     footer: "https://github.com/MuViSU/biplotEZ_beta"
