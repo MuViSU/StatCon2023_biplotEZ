@@ -66,7 +66,7 @@ library(biplotEZ)
 ## Introduction
 
 ::: incremental
--   The biplot is a powerful and very useful data visualisation tool. Biplots makes information in a table of data become transparent, revealing the main structures in the data in a methodical way, for example patterns of correlations between variables or similarities between the observations.
+-   The biplot is a powerful and very useful data visualisation tool. Biplots make information in a table of data become transparent, revealing the main structures in the data in a methodical way, for example patterns of correlations between variables or similarities between the observations.
 -   Consider an $n$ x $p$ data matrix containing numerical information on $p$ variables for each of $n$ samples.
 -   The $n$ samples can be represented in a two-dimensional scatter diagram, where the coordinate axes can represent any two variables.
 -   Samples can also be represented in a three-dimensional diagram developed from Cartesian geometry and conceptually in multidimensional forms in which there are many coordinate axes to represent the $n$ samples.
