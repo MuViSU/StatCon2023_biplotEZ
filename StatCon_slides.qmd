@@ -551,3 +551,43 @@ args(plot)
 ```
 
 plot(x, exp.factor = 1.2, ...)
+
+
+## Canonical Variate Analysis & biplots 
+
+::: incremental
+-  Discriminant Analysis is a predictive method that focuses on the relationship between a data matrix of predictor variables and a response variable. 
+- Its primary goal is to optimally separate different groups of objects to provide a classification rule for assigning entities of unknown origin to one of a known set of groups. 
+- In Linear Discriminant Analysis (LDA), researchers attempt to find linear combinations of the predictor variables that maximise the ratio of between-class variance to within-class variance. 
+- CVA is a direct application of LDA, making a CVA biplot a graphical representation of LDA. 
+- The goal is to discover a mapping that can transform each column of matrix $\pmb{X}$ into a column within a lower-dimensional space, while exploring the cluster structure of the original data. 
+:::
+
+## Constructing the CVA biplot
+::: incremental
+  - The goal of CVA is to find a set of $p$ linear combinations of $\pmb{X}$, ${\bf{m}}_1, {\bf{m}}_2, \ldots, {\bf{m}}_p$ that maximise the between-group variation and minimise the within-group variation. 
+ - These linear combinations are known as canonical variates. 
+ - The within-group variation can be measured by the sum of squared deviations from their respective means, ${\bf{W}} = {\bf{X}}'{\bf{X}} - \bar{\bf{X}}'{\bf{N}}\bar{\bf{X}}$.
+ - The between-group variation can be measured by the sum of squared deviations between the group means, ${\bf{B}} = \bar{\bf{X}}' {\bf{N}} \bar{\bf{X}}$.
+ - where ${\bf{N}} = diag(n_1,n_2, \ldots, n_K)$
+ - The linear combination which optimally seperates the observations from the different groups with respect to the $n$ samples is defined by the coefficient vector $\pmb{m}$ which maximises the variance ratio: $\lambda = \frac{{\bf{m}}' {\bf{B}}{\bf{m}}}{{\bf{m}}' {\bf{W}} {\bf{m}}}$. 
+ 
+:::
+
+## Representing samples 
+$${\bf{X}}{\bf{M}}$$
+
+where ${\bf{M}} = {\bf{L V}}$ \newline
+
+${\bf{L}} = {\bf{W}}^{-\frac{1}{2}}$ \newline 
+
+${\bf{V}}$ are the eigenvectors of ${\bf{W}}^{-\frac{1}{2}} {\bf{B}} {\bf{W}}^{-\frac{1}{2}}$ \newline 
+
+
+## Representing variables 
+
+## Calibrated biplot axes 
+
+## CVA biplot in biplotEZ
+
+
