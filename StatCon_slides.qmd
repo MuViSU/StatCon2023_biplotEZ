@@ -432,9 +432,7 @@ str(out)
 ## [PCA(), samples()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
-#changing the colour of samples
-#changing the plotting characters of the samples
-#changing the expansion of the plotting characters of the samples
+#changing the colour, plotting characters and size of the samples
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> samples(col = "purple", 
  pch = c(15,1,17), cex = 1.2) |> plot()
 ```
@@ -443,8 +441,7 @@ biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> samples(col = "purple",
 
 ```{r, echo = TRUE, eval = TRUE}
 #changing the grouping colours
-#printing the labels
-#changing the label size
+#printing the sample names and changing the size
 #omitting the plotting character
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> samples(label = TRUE, pch = "", 
   col = c("purple","magenta","blue"), label.cex=1) |> plot()
@@ -478,7 +475,7 @@ args(axes)
 | Argument                                                    | Description                                                                                                   |
 |--------------------------------|----------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}      | Object of class [biplot]{style="font-family: 'Noto Sans Mono', monospace"}.                                   |
-| [X.names]{style="font-family: 'Noto Sans Mono', monospace"} | Specify which axes should include the column names of [bp]{style="font-family: 'Noto Sans Mono', monospace"}. |
+| [X.names]{style="font-family: 'Noto Sans Mono', monospace"} | Refers to the column names of [bp]{style="font-family: 'Noto Sans Mono', monospace"} to specify which axes to label. |
 | [which]{style="font-family: 'Noto Sans Mono', monospace"}   | Column numbers for which axes should be constructed.                                                          |
 | [col]{style="font-family: 'Noto Sans Mono', monospace"}     | Axis colours.                                                                                                 |
 | [lwd]{style="font-family: 'Noto Sans Mono', monospace"}     | Axis line widths.                                                                                             |
@@ -559,12 +556,14 @@ str(out)
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#changing axes colour
 biplot(iris[,1:4]) |> PCA() |> axes(col = "purple") |> plot()
 ```
 
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#displaying selected column names
 biplot(iris[,1:4]) |> PCA() |> axes(col = "purple", X.names = c("Sepal.Length",
   "Petal.Width","Sepal.Width")) |> plot()
 ```
@@ -572,12 +571,15 @@ biplot(iris[,1:4]) |> PCA() |> axes(col = "purple", X.names = c("Sepal.Length",
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#displaying selected axes
 biplot(iris[,1:4]) |> PCA() |> axes(which = c(1,2,3), col = "black") |> plot()
 ```
 
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#displaying selected axes
+#changing label direction and distance from plot
 biplot(iris[,1:4]) |> PCA() |> axes(which = c(1,2,4), col = "black", 
   label.dir = "Paral", label.dist = 1) |> plot()
 ```
@@ -585,40 +587,47 @@ biplot(iris[,1:4]) |> PCA() |> axes(which = c(1,2,4), col = "black",
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#changing axes line width and axes label size
+#changing tick colour and size
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
-  "black", tick.size = 1.2, lwd = 1.2, label.cex = 1, tick.label.cex = 0.7) |> plot()
+  "black", tick.size = 1.2, tick.label.cex = 0.7, lwd = 1.5, label.cex = 1) |> plot()
 ```
 
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#changing tick colour, size and number of ticks
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
-  "black", tick.size = 1.2, lwd = 1.2, ticks = 7, tick.label.col = "red") |> plot()
+  "black", tick.size = 1.2, ticks = 7, tick.label.col = "red", lwd = 1.2) |> plot()
 ```
 
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#changing axes names
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
   "black", tick.size = 1.2, lwd = 1.2, ticks = 7, ax.names = c("A", "B", "","D"), 
   label.dist = 1, label.dir = "Hor") |> plot()
 ```
-
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#suppressing tick labels
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
-  "black", tick.size = 1.2, lwd = 1.2, ticks = 7, tick.label = FALSE, orthogx = 2) |> plot()
+  "black", tick.size = 1.2, lwd = 1.2, ticks = 7, tick.label = FALSE) |> plot()
 ```
+
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#horizontal translation of axes
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
   "black", orthogx = 2) |> plot()
 ```
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
+#vertical translation of axes
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
   "black", orthogy = -2) |> plot()
 ```
@@ -662,17 +671,20 @@ str(out)
 ## [PCA(),alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#one alpha bag per group
 biplot (iris[,1:4],group.aes=iris[,5]) |> PCA() |> alpha.bags(alpha=0.95) |> plot()
 ```
 ## [PCA(),alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#three alpha bags for group 1 with different line types
 biplot (iris[,1:4],group.aes = iris[,5]) |> PCA() |> alpha.bags(alpha = c(0.99,0.8,0.6),
   which = 1, lty = c(1,2,3)) |> plot()
 ```
 ## [PCA(),alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#alpha bags for selected groups with different line types per alpha value
 biplot (iris[,1:4],group.aes = iris[,5]) |> PCA() |> alpha.bags(alpha = c(0.95,0.6),
   which = c(1,2), lty = c(1,2,3)) |> plot()
 ```
@@ -680,6 +692,7 @@ biplot (iris[,1:4],group.aes = iris[,5]) |> PCA() |> alpha.bags(alpha = c(0.95,0
 ## [PCA(),alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#three alpha bags per group with different line types per alpha value
 biplot (iris[,1:4],group.aes = iris[,5]) |> PCA() |> alpha.bags(alpha = c(0.99,0.8,0.6)
   ,lty = c(1,2,3)) |> plot()
 ```
@@ -687,6 +700,8 @@ biplot (iris[,1:4],group.aes = iris[,5]) |> PCA() |> alpha.bags(alpha = c(0.99,0
 ## [PCA(),alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#changing alpha bag colours
+#changing sample colour
 biplot (iris[,1:4],group.aes = iris[,5]) |> PCA() |> alpha.bags(alpha = c(0.99,0.8,0.6), 
   lty = c(1,2,3), col = c("purple","magenta","blue")) |> samples(col = "grey")|> plot()
 ```
@@ -732,23 +747,27 @@ str(out)
 ## [PCA(),concentration.ellipse()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#one kappa ellipse per group
 biplot (iris[,1:4]) |> PCA(group.aes = iris[,5]) |> concentration.ellipse(kappa = 2) |> plot()
 ```
 ## [PCA(),concentration.ellipse()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#chaning the degrees of freedom for the kappa value calculation using alpha
 biplot (iris[,1:4]) |> PCA(group.aes = iris[,5]) |> concentration.ellipse(alpha = 0.95,
   df = 2) |> plot()
 ```
 ## [PCA(),concentration.ellipse()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#three kappa ellipses per group with different line types per kappa value
 biplot (iris[,1:4]) |> PCA(group.aes = iris[,5]) |> concentration.ellipse(kappa = c(2,3,4),
   lty = c(1,2,3)) |> plot()
 ```
 ## [PCA(),concentration.ellipse(), alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#one alpha bag and kappa ellipse per group
 biplot (iris[,1:4]) |> PCA(group.aes = iris[,5]) |> concentration.ellipse(kappa = 2.45, 
   lty = 2) |> alpha.bags(alpha = 0.95) |> plot()
 ```
@@ -778,12 +797,14 @@ biplot (iris[,1:4], group.aes = iris[,5], Title = "Test biplot") |> PCA() |>
 ## [legend.type()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results = "hide"}
+#include legend for alpha bags and kappa ellipses
 biplot (iris[,1:4]) |> PCA(group.aes=iris[,5]) |> concentration.ellipse(kappa = 2.45,
   lty = 2) |> alpha.bags(alpha = 0.95) |> legend.type(bags = TRUE, ellipses = TRUE) |> plot()
 ```
 ## [legend.type()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE, results='hide', fig.show="hold", out.width="50%"}
+#include legend in a separate plot
 biplot (iris[,1:4]) |> PCA(group.aes=iris[,5]) |> concentration.ellipse(kappa = 2.45, 
   lty = 2) |> alpha.bags(alpha = 0.95) |> legend.type(bags = TRUE, ellipses = TRUE, 
   new = TRUE) |> plot()
