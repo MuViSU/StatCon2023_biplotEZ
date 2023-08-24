@@ -600,13 +600,22 @@ biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.co
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
   "black", tick.size = 1.2, ticks = 7, tick.label.col = "red", lwd = 1.2) |> plot()
 ```
+## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
+
+```{r, echo = TRUE, eval = TRUE}
+#changing tick mark positions
+biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
+  "black", tick.size = 1.2, ticks = 5, tick.label.pos = c(2,2,3,1), tick.label.offset = 
+  c(0.4,0.4,0.4,0.8), lwd = 1.2) |> plot()
+```
 
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
 #changing axes names
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
-  "black", tick.size = 1.2, lwd = 1.2, ticks = 7, ax.names = c("A", "B", "","D"), 
+  "black", tick.size = 1.2, lwd = 1.2, ticks = 7, tick.label.pos = c(2,2,3,1), 
+  tick.label.offset = c(0.4,0.4,0.4,0.8), ax.names = c("A", "B", "","D"), 
   label.dist = 1, label.dir = "Hor") |> plot()
 ```
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
@@ -622,14 +631,16 @@ biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.co
 ```{r, echo = TRUE, eval = TRUE}
 #horizontal translation of axes
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
-  "black", orthogx = 2) |> plot()
+  "black", tick.label.pos = c(2,2,3,1), tick.label.offset = c(0.4,0.4,0.4,0.8),
+  orthogx = 2) |> plot()
 ```
 ## [PCA()]{style="font-family: 'Noto Sans Mono', monospace"}, [axes()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"}
 
 ```{r, echo = TRUE, eval = TRUE}
 #vertical translation of axes
 biplot(iris[,1:4], group.aes = iris[,5]) |> PCA() |> axes(col = "black", tick.col = 
-  "black", orthogy = -2) |> plot()
+  "black", tick.label.pos = c(2,2,3,1), tick.label.offset = c(0.4,0.4,0.4,0.8),
+  orthogy = -2) |> plot()
 ```
 
 ## [alpha.bags()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">arguments</font>
