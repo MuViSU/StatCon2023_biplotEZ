@@ -39,7 +39,43 @@ opts_chunk$set(
 library(biplotEZ)
 
 ```
-## Meet the team
+## Presenters
+::: {layout="[45,-5,45]"}
+![Dr. Raeesa Ganey (Wits)](team\RG.jpg)
+
+![Dr. Johané Nienkemper-Swanepoel (SU)](team\JNS.jpg)
+:::
+
+## Meet the Team (SU)
+::: {layout="[45,-5,45]"}
+![Prof. Sugnet Lubbe](team\SL.png)
+
+![Prof. Niël le Roux](team\NJLR.jpg)
+:::
+
+## Meet the Team (SU students)
+::: {layout="[45,-5,45]"}
+![Ruan Buys (MComm)](team\RB.jpg)
+
+![Zoë-Mae Adams (PhD)](team\ZA.jpg)
+:::
+
+## Meet the team (SU)
+
+::: {.column width="45%"}
+-   ![Sugnet Lubbe](team\SL.png){height="250"} 
+
+-   ![Ruan Buys](team\RB.jpg){height="250"} 
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+-  ![Niël le Roux](team\NJLR.jpg){height="250"}
+
+-   ![Zoë-Mae Adams](team\ZA.jpg){height="250"}
+:::
 
 
 ## Outline

@@ -1,0 +1,89 @@
+---
+title: "**biplotEZ**"
+subtitle: "User-friendly biplots in R<br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br>**StatCon 2023**" 
+date: "2 September 2023"
+date-format: "iso"
+format: 
+  revealjs:
+    self-contained: true
+    theme: [serif, statcon.scss]
+    slide-number: true
+    footer: "https://github.com/MuViSU/biplotEZ_beta"
+title-slide-attributes: 
+  data-background-color: rgb(183,153,98)
+  data-background-image: "SU_vertical.jpg"
+  data-background-size: 15%
+  data-background-opacity: "0.9"
+  data-background-position: 95% 90%
+---
+
+```{r setup}
+#| include: false
+
+library(knitr)
+options(htmltools.dir.version = FALSE, tibble.width = 45)
+opts_chunk$set(
+  echo = TRUE, 
+  warning = FALSE, 
+  message = FALSE, 
+  error=FALSE, 
+  comment = "#",
+  fig.align = 'center', 
+  fig.retina = 5,
+  out.width = "80%",
+  fig.show = 'hold',
+  cache = FALSE
+)
+
+# libraries
+library(biplotEZ)
+
+```
+## Presenters
+::: {layout="[45,-5,45]"}
+![Raeesa Ganey (Wits)](team\RG.jpg)
+
+![Johané Nienkemper-Swanepoel (SU)](team\JNS.jpg)
+:::
+
+## Meet the Team (SU)
+::: {layout="[45,-5,45]"}
+![Prof. Sugnet Lubbe](team\SL.png)
+
+![Prof. Niël le Roux](team\NJLR.jpg)
+:::
+
+## Meet the Team (SU)
+::: {layout="[45,-5,45]"}
+![Ruan Buys (MComm student)](team\RB.jpg)
+
+![Zoë-Mae Adams (PhD student)](team\ZA.jpg)
+:::
+
+## Meet the team (SU)
+
+::: {.column width="45%"}
+-   ![Sugnet Lubbe](team\SL.png){height="250"} 
+
+-   ![Ruan Buys (MComm student)](team\RB.jpg){height="250"} 
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+-  ![Niël le Roux](team\NJLR.jpg){height="250"}
+
+-   ![Zoë-Mae Adams](team\ZA.jpg){height="250"}
+:::
+
+## Meet the Team (SU)
+::: {layout="[[45,-5,45],[45,-5,45]]"}
+![Prof. Sugnet Lubbe](team\SL.png){height="100"} 
+
+![Prof. Niël le Roux](team\NJLR.jpg){height="100"} 
+
+![Ruan Buys (MComm student)](team\RB.jpg){height="100"} 
+
+![Zoë-Mae Adams (PhD student)](team\ZA.jpg){height="100"} 
+:::
