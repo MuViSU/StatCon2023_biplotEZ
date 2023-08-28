@@ -115,7 +115,6 @@ summary(iris)
 
 ```{r echo=TRUE}
 library(biplotEZ)
-library(magrittr)
 biplot(iris[,1:4],iris[,5]) |> PCA() |> plot()
 ```
 
@@ -849,6 +848,11 @@ biplot (iris[,1:4]) |> PCA(group.aes=iris[,5]) |> concentration.ellipse(kappa = 
 -   Discriminant Analysis is a predictive method that focuses on the relationship between a data matrix of predictor variables and a response variable.
 -   Its primary goal is to optimally separate different groups of objects to provide a classification rule for assigning entities of unknown origin to one of a known set of groups.
 -   In Linear Discriminant Analysis (LDA), researchers attempt to find linear combinations of the predictor variables that maximise the ratio of between-class variance to within-class variance.
+:::
+
+## Canonical Variate Analysis & biplots
+
+::: incremental
 -   CVA is a direct application of LDA, making a CVA biplot a graphical representation of LDA.
 -   The goal is to discover a mapping that can transform each column of matrix $\pmb{X}$ into a column within a lower-dimensional space, while exploring the cluster structure of the original data.
 :::
@@ -899,8 +903,10 @@ $$ \frac{\mu}{{\bf{e}}_i' ({\bf{M}}^{-1})'{\bf{J}}{\bf{M}}^{-1}{\bf{e}}_i} {\bf{
 ## CVA Biplot
 
 ```{r}
+#install.packages("heplots")
 library(heplots)
-biplot(Diabetes[,1:5],group.aes = Diabetes$group) |> CVA() |> plot()
+data(Diabetes)
+biplot(Diabetes[,1:5], group.aes = Diabetes[,6]) |> CVA() |> axes(label.dist = 0.2) |>  plot()
 ```
 
 
@@ -915,7 +921,7 @@ args(CVA)
 |-------------------------|-----------------------------------------------|
 | [bp]{style="font-family: 'Noto Sans Mono', monospace"}         | Object of class biplot obtained from preceding function biplot().                |
 | [dim.biplot]{style="font-family: 'Noto Sans Mono', monospace"} | Dimension of the biplot. Only values 1, 2 and 3 are accepted, with default 2.  *Only 2D in current version*.  |
-| [e.vects]{style="font-family: 'Noto Sans Mono', monospace"}    | Which eigenvectors (principal components) to extract, with default 1:dim.biplot. |
+| [e.vects]{style="font-family: 'Noto Sans Mono', monospace"}    | Which eigenvectors (principal components) to extract, with default 1:dim.biplot. *Only 2D in current version*. |
 
 : {tbl-colwidths="\[25,75\]"}
 
@@ -928,12 +934,13 @@ args(CVA)
 | Argument                                                        | Description                                                                                                                         |
 |-------------------------|-----------------------------------------------|
 | [group.aes]{style="font-family: 'Noto Sans Mono', monospace"}   | Vector of the same length as the number of rows in the data matrix for differentiated aesthetics for samples.                       |
-| [weightedCVA]{style="font-family: 'Noto Sans Mono', monospace"} | The default is "weighted", specifying a weighted CVA to be performed. Other possible values are "unweightedI" and "unweightedCent". |
+| [weightedCVA]{style="font-family: 'Noto Sans Mono', monospace"} | The default is "weighted", specifying a weighted CVA to be performed. Other possible values are "unweightedI" and "unweightedCent". *Only weighted in current version*. |
 
 : {tbl-colwidths="\[25,75\]"}
 
 ## [CVA()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">groups</font>
 
 ```{r, echo = TRUE, eval = TRUE}
-biplot(iris[,1:4], group.aes = iris[,5]) |> CVA() |> plot()
+biplot(iris[,1:4], group.aes = iris[,5]) |> CVA() |>  axes(tick.label.pos = 
+  c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
 ```

@@ -3,7 +3,7 @@ Slides: Workshop User-friendly biplots in R with biplotEZ
 
 Centre for Multi-Dimensional Data Visualisation (MuViSU)
 
-Presenters: Raessa Ganey & Johané Nienkemper-Swanepoel
+Presenters: Raeesa Ganey & Johané Nienkemper-Swanepoel
 
 You can install the development version of biplotEZ like this:
 ``` r
