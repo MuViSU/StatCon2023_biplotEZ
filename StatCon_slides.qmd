@@ -60,23 +60,6 @@ library(biplotEZ)
 ![Zoë-Mae Adams (PhD)](team\ZA.jpg)
 :::
 
-## Meet the team (SU)
-
-::: {.column width="45%"}
--   ![Sugnet Lubbe](team\SL.png){height="250"} 
-
--   ![Ruan Buys](team\RB.jpg){height="250"} 
-:::
-
-::: {.column width="5%"}
-:::
-
-::: {.column width="45%"}
--  ![Niël le Roux](team\NJLR.jpg){height="250"}
-
--   ![Zoë-Mae Adams](team\ZA.jpg){height="250"}
-:::
-
 
 ## Outline
 
@@ -850,7 +833,10 @@ biplot (iris[,1:4]) |> PCA(group.aes=iris[,5]) |> concentration.ellipse(kappa = 
 ```
 ## [legend.type()]{style="font-family: 'Noto Sans Mono', monospace"}
 
-```{r, echo = TRUE, eval = TRUE, results='hide', fig.show="hold", out.width="50%"}
+```{r, echo = TRUE, eval = TRUE, results='hide', out.width="150%"}
+#| layout-ncol: 2
+#| column: page
+
 #include legend in a separate plot
 biplot (iris[,1:4]) |> PCA(group.aes=iris[,5]) |> concentration.ellipse(kappa = 2.45, 
   lty = 2) |> alpha.bags(alpha = 0.95) |> legend.type(bags = TRUE, ellipses = TRUE, 
@@ -880,7 +866,9 @@ biplot (iris[,1:4]) |> PCA(group.aes=iris[,5]) |> concentration.ellipse(kappa = 
 
 ## Representing samples
 
-$${\bf{X}}{\bf{M}}$$
+The observed values of the $p$ canonical variables for an observation with measurement vector ${\bf{x}}$ are given by the elements of the vector,
+
+$${\bf{y}}' = {\bf{x}}'{\bf{M}}$$
 
 where ${\bf{M}} = {\bf{L V}}$ \newline
 
@@ -888,9 +876,34 @@ ${\bf{L}} = {\bf{W}}^{-\frac{1}{2}}$ \newline
 
 ${\bf{V}}$ are the eigenvectors of ${\bf{W}}^{-\frac{1}{2}} {\bf{B}} {\bf{W}}^{-\frac{1}{2}}$ \newline
 
+In a CVA biplot, the observations belonging to different groups are represented as points. For any sample point ${\bf{x}}$, it is represented in the two-dimensional CVA biplot by the first two columns of ${\bf{x}}'{\bf{M}}$. Observations that are close together
+in the biplot are similar in their scores on the first two canonical variables, while observations that are far apart are dissimilar. 
+
 ## Representing variables
+The original measured variables can then be expressed as functions of the canonical variables:
+
+$$ {\bf{x}} = {\bf{y}}'{\bf{M}}^{-1} $$ 
+
+The variables are represented as vectors, with the direction of each vector indicating the role of the variable in discriminating between the groups. We use the above to construct prediction biplot axes to represent the $p$ variables. 
+
+
 
 ## Calibrated biplot axes
+
+The vectors can be calibrated for prediction. The position of the marker point for predicting a certain value $\mu$ on the $i$-th variable is given by
+
+
+$$ \frac{\mu}{{\bf{e}}_i' ({\bf{M}}^{-1})'{\bf{J}}{\bf{M}}^{-1}{\bf{e}}_i} {\bf{e}}_i' ({\bf{M}}^{-1})' {\bf{J}} $$
+
+
+## CVA Biplot
+
+```{r}
+library(heplots)
+biplot(Diabetes[,1:5],group.aes = Diabetes$group) |> CVA() |> plot()
+```
+
+
 
 ## [CVA()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">arguments</font>
 
