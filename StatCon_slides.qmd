@@ -900,12 +900,21 @@ The vectors can be calibrated for prediction. The position of the marker point f
 $$ \frac{\mu}{{\bf{e}}_i' ({\bf{M}}^{-1})'{\bf{J}}{\bf{M}}^{-1}{\bf{e}}_i} {\bf{e}}_i' ({\bf{M}}^{-1})' {\bf{J}} $$
 
 
-## CVA Biplot
+## Diabetes data
 
 ```{r}
 #install.packages("heplots")
+#install.packages("dplyr")
 library(heplots)
+library(dplyr)
 data(Diabetes)
+tibble(Diabetes)
+```
+
+
+## CVA Biplot
+
+```{r}
 biplot(Diabetes[,1:5], group.aes = Diabetes[,6]) |> CVA() |> axes(label.dist = 0.2) |>  plot()
 ```
 
