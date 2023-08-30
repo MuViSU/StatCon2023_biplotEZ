@@ -41,23 +41,23 @@ library(biplotEZ)
 ```
 ## Presenters
 ::: {layout="[45,-5,45]"}
-![Dr. Raeesa Ganey (Wits)](team\RG.jpg)
+![Dr. Raeesa Ganey (Wits)](RG.jpg)
 
-![Dr. Johané Nienkemper-Swanepoel (SU)](team\JNS.jpg)
+![Dr. Johané Nienkemper-Swanepoel (SU)](JNS.jpg)
 :::
 
 ## Meet the Team (SU)
 ::: {layout="[45,-5,45]"}
-![Prof. Sugnet Lubbe](team\SL.png)
+![Prof. Sugnet Lubbe](SL.png)
 
-![Prof. Niël le Roux](team\NJLR.jpg)
+![Prof. Niël le Roux](NJLR.jpg)
 :::
 
 ## Meet the Team (SU students)
 ::: {layout="[45,-5,45]"}
-![Ruan Buys (MComm)](team\RB.jpg)
+![Ruan Buys (MComm)](RB.jpg)
 
-![Zoë-Mae Adams (PhD)](team\ZA.jpg)
+![Zoë-Mae Adams (PhD)](ZA.jpg)
 :::
 
 
@@ -941,6 +941,15 @@ args(CVA)
 ## [CVA()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">groups</font>
 
 ```{r, echo = TRUE, eval = TRUE}
-biplot(iris[,1:4], group.aes = iris[,5]) |> CVA() |>  axes(tick.label.pos = 
+biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA() |>  axes(tick.label.pos = 
   c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
 ```
+
+
+## [CVA()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">weighted CVA</font>
+
+```{r, echo = TRUE, eval = TRUE}
+biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA(weightedCVA = "weighted") |>  axes(tick.label.pos = 
+  c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
+```
+
