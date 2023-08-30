@@ -44,9 +44,18 @@ $codeFontSize: 1.5em;
 $code-color: #82CCAE;
 $code-block-bg: rgba(183,153,98,0.2);
 
-// Links and actions
-$linkColor: #9fa997;
-$linkColorHover: darken( $linkColor, 20% );
+// Links
+$linkcolor: rgb(44,204,211);
+
+/* unvisited link */
+a:link {
+  color: rgb(44,204,211) ;
+}
+
+/* visited link */
+a:visited {
+  color:rgb(44,204,211);
+}
 
 // Text selection
 $selectionBackgroundColor: rgb(44,204,211);
@@ -60,7 +69,6 @@ h1 {
   font-weight: bold;
 }
 
-// start using css here
 #title-slide > h1 {
   font-family: 'Raleway', sans-serif;
   color: #61223b;
@@ -75,7 +83,6 @@ h1 {
   font-weight: medium;
 }
 
-// Styling title slide
 #title-slide .date {
   font-family: 'Raleway', sans-serif;
   color: rgb(166,10,61);
@@ -95,7 +102,6 @@ h1 {
   color: rgba(77,83,86);
 }
 
-// Code is too small
 #remark-code {
   font-size: 50px;
 } 

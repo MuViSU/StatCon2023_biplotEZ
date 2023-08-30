@@ -1,14 +1,12 @@
 ---
 title: "**biplotEZ**"
-subtitle: "User-friendly biplots in R<br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br>**StatCon 2023**" 
-date: "2 September 2023"
-date-format: "iso"
+subtitle: "User-friendly biplots in R<br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br>**StatCon 2023**<br><br><br><br>**Code repository**: [https://github.com/MuViSU/biplotEZ_beta](https://github.com/MuViSU/biplotEZ_beta)"
 format: 
   revealjs:
     self-contained: true
     theme: [serif, statcon.scss]
     slide-number: true
-    footer: "https://github.com/MuViSU/biplotEZ_beta"
+    footer: <a href="https://github.com/MuViSU/StatCon2023_biplotEZ" target="_blank">https://github.com/MuViSU/StatCon2023_biplotEZ</a>
 title-slide-attributes: 
   data-background-color: rgb(183,153,98)
   data-background-image: "SU_vertical.jpg"
@@ -902,13 +900,14 @@ $$ \frac{\mu}{{\bf{e}}_i' ({\bf{M}}^{-1})'{\bf{J}}{\bf{M}}^{-1}{\bf{e}}_i} {\bf{
 
 ## Diabetes data
 
-```{r}
+```{r, echo = TRUE, eval = TRUE}
+#| code-overflow: scroll
 #install.packages("heplots")
 #install.packages("dplyr")
 library(heplots)
 library(dplyr)
 data(Diabetes)
-tibble(Diabetes)
+Diabetes
 ```
 
 
@@ -943,22 +942,21 @@ args(CVA)
 | Argument                                                        | Description                                                                                                                         |
 |-------------------------|-----------------------------------------------|
 | [group.aes]{style="font-family: 'Noto Sans Mono', monospace"}   | Vector of the same length as the number of rows in the data matrix for differentiated aesthetics for samples.                       |
-| [weightedCVA]{style="font-family: 'Noto Sans Mono', monospace"} | The default is "weighted", specifying a weighted CVA to be performed. Other possible values are "unweightedI" and "unweightedCent". *Only weighted in current version*. |
+| [weightedCVA]{style="font-family: 'Noto Sans Mono', monospace"} | The default is "weighted", specifying a weighted CVA to be performed. Other possible values are "unweightedI" and "unweightedCent". *When group sizes are similar, weighting will have a minimal effect*. |
 
 : {tbl-colwidths="\[25,75\]"}
 
 ## [CVA()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">groups</font>
 
 ```{r, echo = TRUE, eval = TRUE}
-biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA() |>  axes(tick.label.pos = 
-  c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
+biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA() |>  axes(tick.label.pos
+  = c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
 ```
 
+## Credit
 
-## [CVA()]{style="font-family: 'Noto Sans Mono', monospace"} with [plot()]{style="font-family: 'Noto Sans Mono', monospace"} - <font size="8">weighted CVA</font>
+-   Slide inspiration: <a href="https://github.com/dicook/MDAG_2022" target="_blank">Dianne Cook MDAG 2022</a>
 
-```{r, echo = TRUE, eval = TRUE}
-biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA(weightedCVA = "weighted") |>  axes(tick.label.pos = 
-  c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
-```
+## Thank you
 
+-   We hope this is the start of many EZ biplot constructions!
