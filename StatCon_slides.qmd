@@ -953,7 +953,7 @@ biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA() |>  axes(tick.label.po
   = c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
 ```
 
-## Credit
+## 
 
 -   Slide inspiration: <a href="https://github.com/dicook/MDAG_2022" target="_blank">Dianne Cook MDAG 2022</a>
 
