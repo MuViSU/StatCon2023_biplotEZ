@@ -1,6 +1,7 @@
 ---
 title: "**biplotEZ**"
-subtitle: "User-friendly biplots in R<br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br>**StatCon 2023**<br><br><br><br>**Code repository**: [https://github.com/MuViSU/biplotEZ_beta](https://github.com/MuViSU/biplotEZ_beta)"
+subtitle: "User-friendly biplots in R<br><br><br><br> Centre for Multi-Dimensional Data Visualisation (MuViSU) <br>muvisu@sun.ac.za<br><br><br><br>**StatCon2023**"
+#author: <a href="https://github.com/MuViSU" target="_blank">https://github.com/MuViSU</a>
 format: 
   revealjs:
     self-contained: true
@@ -39,25 +40,26 @@ library(biplotEZ)
 ```
 ## Presenters
 ::: {layout="[45,-5,45]"}
-![Dr. Raeesa Ganey (Wits)](RG.jpg)
+![Dr Raeesa Ganey (Wits)](RG.jpg)
 
-![Dr. Johané Nienkemper-Swanepoel (SU)](JNS.jpg)
+![Dr Johané Nienkemper-Swanepoel (SU)](JNS.jpg)
 :::
 
 ## Meet the Team (SU)
-::: {layout="[45,-5,45]"}
+::: {layout="[1,1,1]"}
+![Prof. Niël le Roux](NJLR.jpg)
+
 ![Prof. Sugnet Lubbe](SL.png)
 
-![Prof. Niël le Roux](NJLR.jpg)
+![Dr Carel van der Merwe](CJVM.jpg)
 :::
 
 ## Meet the Team (SU students)
-::: {layout="[45,-5,45]"}
-![Ruan Buys (MComm)](RB.jpg)
-
+::: {layout="[25,-15,25]"}
 ![Zoë-Mae Adams (PhD)](ZA.jpg)
-:::
 
+![Ruan Buys (MComm)](RB.jpg)
+:::
 
 ## Outline
 
@@ -269,10 +271,13 @@ biplot(X) |> PCA() |> plot()
 ## Installing **biplotEZ**
 
 ```{r eval=FALSE, echo=TRUE}
-# Install from GitHub
+# Install from CRAN
+install.packages("biplotEZ")
+library(biplotEZ)
+
+# Install the development version from GitHub
 library(devtools)
 install_github("MuViSU/biplotEZ_beta")
-
 library(biplotEZ)
 
 # Getting help                 
@@ -953,10 +958,8 @@ biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA() |>  axes(tick.label.po
   = c(1,2,1,4), tick.label.offset = c(0.7,0.2,0.4,1), label.dist = 0.2) |> plot()
 ```
 
-## 
-
--   Slide inspiration: <a href="https://github.com/dicook/MDAG_2022" target="_blank">Dianne Cook MDAG 2022</a>
-
 ## Thank you
 
--   We hope this is the start of many EZ biplot constructions!
+#### We hope this is the start of many EZ biplot constructions! <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+###### Slide inspiration: <a href="https://github.com/dicook/MDAG_2022" target="_blank">Dianne Cook MDAG 2022</a>
