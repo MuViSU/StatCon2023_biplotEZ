@@ -962,4 +962,4 @@ biplot(Diabetes[,3:5], group.aes = Diabetes[,6]) |> CVA() |>  axes(tick.label.po
 
 #### We hope this is the start of many EZ biplot constructions! <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-###### Slide inspiration: <a href="https://github.com/dicook/MDAG_2022" target="_blank">Dianne Cook MDAG 2022</a>
+###### Slide style inspiration: <a href="https://github.com/dicook/MDAG_2022" target="_blank">Prof. Dianne Cook MDAG 2022</a>
