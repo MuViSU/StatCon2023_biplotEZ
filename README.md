@@ -1,7 +1,7 @@
 # StatCon 2023 (2 September, Cape Town, South Africa)
 Workshop on User-friendly biplots in R with biplotEZ
 
-To view slides: download and open <a href="[https://github.com/dicook/MDAG_2022](https://github.com/MuViSU/StatCon2023_biplotEZ/blob/main/StatCon_slides.html)" target="_blank">https://github.com/MuViSU/StatCon2023_biplotEZ/blob/main/StatCon_slides.html</a>
+To view html slides: <a href="https://github.com/MuViSU/StatCon2023_biplotEZ/blob/main/StatCon_slides.html" target="_blank">Download and open.</a>
 
 Centre for Multi-Dimensional Data Visualisation (MuViSU)
 
